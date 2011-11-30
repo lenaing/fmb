@@ -1,0 +1,117 @@
+#: src/plugins/PluginEngine.class.php:226
+#, php-format
+msgid   "'%s->%s' already hooked for '%s'."
+msgstr  ""
+
+#: src/core/Core.class.php:158
+msgid   "<b>[FMB Critical failure]</b> Fini les branlettes, &agrave; vos "
+        "chaussettes !"
+msgstr  ""
+
+#: src/core/Core.class.php:114
+msgid   "<b>[FMB Critical failure]</b> J'ai not&eacute; ton nom, tu vas "
+        "roter du sang : d&eacute;fense de rire et d&eacute;fense de "
+        "pleurer! Je vais te mettre au pas moi, je vais te dresser !"
+msgstr  ""
+
+#: src/plugins/PluginEngine.class.php:160
+msgid   "<b>[FMB Critical failure]</b> T'as une gueule de guerrier ? "
+        "Aaaaarrrrrrrhhh ! &Ccedil;a c'est une gueule de guerrier ! "
+        "L&agrave, fais-moi voir ta gueule de guerrier !"
+msgstr  ""
+
+#: src/core/Core.class.php:171
+msgid   "<b>[FMB Critical failure]</b> Trop beaucoup, trop trop beaucoup !"
+msgstr  ""
+
+#: src/core/Singleton.class.php:52
+#, php-format
+msgid   "Cloning of singleton class '%s' is forbidden."
+msgstr  ""
+
+#: src/plugins/PluginEngine.class.php:93
+#, php-format
+msgid   "Failed to init '%s' plugin '%s'."
+msgstr  ""
+
+#: src/core/Core.class.php:152
+#, php-format
+msgid   "Failed to instanciate class '%s'."
+msgstr  ""
+
+#: src/plugins/PluginEngine.class.php:83
+#, php-format
+msgid   "Failed to load '%s' plugin '%s'."
+msgstr  ""
+
+#: src/core/Core.class.php:165
+#, php-format
+msgid   "Failed to load class file '%s'."
+msgstr  ""
+
+#: src/core/Core.class.php:107
+#, php-format
+msgid   "Failed to load file '%s' requested in file "
+msgstr  ""
+
+#: src/plugins/PluginEngine.class.php:221
+#, php-format
+msgid   "Hooked '%s->%s' for '%s'."
+msgstr  ""
+
+#: src/core/Core.class.php:226
+#, php-format
+msgid   "Invalid version string '%s' as first argument for '%s'."
+msgstr  ""
+
+#: src/core/Core.class.php:236
+#, php-format
+msgid   "Invalid version string '%s' as second argument for '%s'."
+msgstr  ""
+
+#: src/plugins/PluginEngine.class.php:54
+#, php-format
+msgid   "Loading plugin : '%s'."
+msgstr  ""
+
+#: src/plugins/Plugin.class.php:78
+msgid   "No details."
+msgstr  ""
+
+#: src/plugins/Plugin.class.php:77
+msgid   "No summary."
+msgstr  ""
+
+#: src/plugins/PluginEngine.class.php:67
+#, php-format
+msgid   "Only one '%s' plugin can be loaded."
+msgstr  ""
+
+#: src/plugins/PluginEngine.class.php:104
+#, php-format
+msgid   "Plugin '%s' needs at least version '%s' of FMB."
+msgstr  ""
+
+#: src/plugins/PluginEngine.class.php:115
+#, php-format
+msgid   "Plugin '%s' needs at least version '%s' of PHP."
+msgstr  ""
+
+#: src/plugins/PluginEngine.class.php:131
+#, php-format
+msgid   "Plugin '%s'already loaded."
+msgstr  ""
+
+#: src/plugins/Plugin.class.php:117
+#, php-format
+msgid   "Tried to set invalid required FMB version '%s' for plugin '%s'."
+msgstr  ""
+
+#: src/plugins/Plugin.class.php:130
+#, php-format
+msgid   "Tried to set invalid required PHP version '%s' for plugin '%s'."
+msgstr  ""
+
+#: src/plugins/Plugin.class.php:76
+msgid   "Unknown version."
+msgstr  ""

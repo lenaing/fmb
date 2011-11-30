@@ -1,0 +1,180 @@
+* {
+    font-family:sans-serif;
+}
+
+/******************************************************************************/
+/* Header                                                                     */
+/******************************************************************************/
+/*
+ * The original Full Metal Jacket helmet picture is Copyright :
+ * - Stanley Kubrick
+ * - Warner Bros.
+ * - The movie publisher
+ * or
+ * - The graphic artist 
+ */
+#header {
+    background:url('../images/logo.png') no-repeat;
+}
+
+#header-text .title {
+    font-size: 2.3em;
+    font-weight:bold;
+}
+
+#header-text .slogan {
+    font-size: 1.5em;
+}
+
+/******************************************************************************/
+/* Navigation bar                                                             */
+/******************************************************************************/
+#nav {
+    font-size:small;
+    font-weight:bold;
+}
+
+#nav li:before {
+    content:" | ";
+}
+
+#nav li:first-child:before {
+    content:"";
+}
+
+/******************************************************************************/
+/* Sidebar                                                                    */
+/******************************************************************************/
+#sidebar li {
+    list-style-type:none;
+    font-size:small;
+}
+
+/******************************************************************************/
+/* Content                                                                    */
+/******************************************************************************/
+#content {
+    font-size:small;
+}
+
+.information, .warning, .error  {
+    font-weight:bold;
+}
+
+.information {
+    color:#006ffA;
+    background:url('../images/icons/information.png') no-repeat;
+}
+
+.warning {
+    color:#d0b20f;
+    background:url('../images/icons/warning.png') no-repeat;
+}
+
+.error {
+    color:red;
+    background:url('../images/icons/error.png') no-repeat;
+}
+
+.top {
+    background:url('../images/top.gif') no-repeat;
+}
+/******************************************************************************/
+/* Posts                                                                      */
+/******************************************************************************/
+.post .post-date {
+    background:url('../images/post-date.png') no-repeat;
+    font-weight:bold;
+}
+
+.post .post-date .month {
+    font-size:1.3em;
+}
+
+.post .post-date .day {
+    font-size:1.7em;
+}
+
+.post .tags {
+    background:url('../images/post-tags.gif') no-repeat;
+}
+
+.post .comments {
+    background:url('../images/post-comments.gif') no-repeat;
+}
+
+.post .add-comment {
+    background:url('../images/post-add-comment.gif') no-repeat;
+}
+
+/******************************************************************************/
+/* Comments                                                                   */
+/******************************************************************************/
+#comments h3 {
+    background:url('../images/icons/comments.png') no-repeat;
+}
+
+#comments .comment-odd {
+    background-color:#98bee1;
+    border-style:solid;
+    border-color:#064987;
+}
+
+#comments .comment-even {
+    background-color:#c1d7ec;
+    border-style:solid;
+    border-color:#21598e;
+}
+
+#comments .comment-title {
+    border-left-style:solid;
+    border-left-color:#004293;
+}
+
+/******************************************************************************/
+/* Footer / Credits                                                           */
+/******************************************************************************/
+#credits {
+    font-size:x-small;
+    font-weight:bold;
+    color:#666666;
+}
+
+/******************************************************************************/
+/* Individual elements                                                        */
+/******************************************************************************/
+/* <A> */
+a:link, a:visited, a:active {
+    color:#006FFA;
+    text-decoration:none;
+}
+
+a:hover {
+    color:#33CFFF;
+}
+
+/* <IMG> */
+img {
+    border:none;
+}
+
+textarea {
+    font-size:small;
+}
+
+pre {
+	font-size: 10px;
+	background-color: black;
+	color: white;
+	padding: 5px;
+	overflow: auto;
+	border-left: 3px solid #e5ac5e;
+}
+
+code {
+	font-size: 9px;
+	background-color: black;
+	color: yellow;
+	padding: 2px;
+}
+

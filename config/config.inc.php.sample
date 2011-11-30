@@ -1,0 +1,46 @@
+<?php
+
+//$fmbConf['debug'] = true;
+$fmbConf['url'] = 'http://test.example.info/';
+
+// Portal
+$fmbConf['site']['url'] = $fmbConf['url'].'site/';
+$fmbConf['site']['title'] = 'My Portal Title';
+$fmbConf['site']['slogan'] = 'My Portal Slogan.';
+
+// Themes
+$fmbConf['themes_url'] = $fmbConf['url'].'themes/';
+$fmbConf['style'] = 'default';
+
+// Blog
+$fmbConf['blog']['url'] = $fmbConf['site']['url'].'blog/';
+$fmbConf['blog']['title'] = 'My Blog Title';
+$fmbConf['blog']['slogan'] = 'My Blog Slogan.';
+$fmbConf['blog']['lastposts'] = 5;                                  // Optional
+
+// Database plugin
+// TODO PEAR + MDB2
+//$fmbConf['monsterdb']['mdb2_path'] = 'mdb2/MDB2.php';
+$fmbConf['monsterdb']['protocol'] = 'pgsql';
+$fmbConf['monsterdb']['user'] = '<user>';
+$fmbConf['monsterdb']['password'] = '<password>';
+$fmbConf['monsterdb']['host'] = '<host>';
+$fmbConf['monsterdb']['db_name'] = '<database>';
+
+// Template plugin
+$fmbConf['skittle']['templates_dir'] = '/full/path/to/themes/';
+$fmbConf['skittle']['compile_dir'] = '/full/path/to/plugins/Skittle/templates_c';
+$fmbConf['skittle']['cache_dir'] = '/full/path/to/plugins/Skittle/cache';
+
+// Formatting plugin
+$fmbConf['baby']['url'] = $fmbConf['themes_url'].$fmbConf['style'].'/';
+$fmbConf['baby']['player'] = 'zplayer.swf';
+
+$fmbConf['admin']['name'] = 'Dummy';
+$fmbConf['admin']['email'] = 'dummy@example.com';
+
+// Plugins ---------------------------------------------------------------------
+$fmbConf['plugins']['database'] = array ('MonsterDB');
+$fmbConf['plugins']['template'] = array ('Skittle');
+$fmbConf['plugins']['formatting'] = array ('Baby');
+?>
