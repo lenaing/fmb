@@ -1,5 +1,5 @@
                 <div id="comments">
-                    <h3>Commentaires</h3>
+                    <h3>Comments</h3>
 {foreach from=$fmbPostComments item=comment}
                     <div class="comment-{cycle values="odd,even"}">
                         <h4>
@@ -13,10 +13,10 @@
 {else}
                             {$comment.com_name}
 {/if}
-                            a écrit :
+                            wrote :
                         </h4>
                         <div class="comment-body">{$comment.com_body}</div>
-                        <div class="comment-info">Envoyé le {$comment.com_time|date_format:"%d %B %Y"} à {$comment.com_time|date_format:"%T"}</div>
+                        <div class="comment-info">Send on {$comment.com_time|date_format:"%d %B %Y"} at {$comment.com_time|date_format:"%T"}</div>
                     </div>
 {/foreach}
                 </div>

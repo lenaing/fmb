@@ -2,7 +2,7 @@
                     <p>
                         <a href="http://webchat.freenode.net/">#fmg (Freenode)</a>
                     </p>
-                    <h2>Liens</h2>
+                    <h2>Links</h2>
                     <p>
                         <a href="http://www.biniou.net/">Le Biniou</a>
                     </p>

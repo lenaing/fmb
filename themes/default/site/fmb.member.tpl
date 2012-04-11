@@ -3,13 +3,13 @@
                     <h3><a href="member.php?id={$fmbMember.mem_id}">{$fmbMember.mem_login}</a></h3>
                     <div class="member">
                         <p>
-                            <b>Niveau :</b>
+                            <b>Level :</b>
 {if $fmbMember.mem_rights == 1}
-                                Administrateur
+                                Administrator
 {elseif $fmbMember.mem_rights == 2}
-                                Membre
+                                Member
 {else}
-                                Anonyme
+                                Anonymous
 {/if}
                         </p>
                     </div>

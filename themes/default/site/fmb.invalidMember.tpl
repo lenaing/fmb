@@ -1,5 +1,5 @@
             <div id="content">
                 <div class="member">
-                    <h3>Membre invalide.</h3>
+                    <h3>Invalid member.</h3>
                 </div>
             </div>

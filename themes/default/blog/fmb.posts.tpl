@@ -1,7 +1,7 @@
             <div id="content">
 {if isset($fmbDisplaySearch) and $fmbDisplaySearch == t}
                 <div class="research">
-                    <h2>Recherche</h2>
+                    <h2>Search</h2>
                     <form method="get" action="index.php">
                         <p>
                             <input type="hidden" name="page" value="posts"/>
@@ -12,12 +12,12 @@
 {if isset($fmbSearchResultsCnt)}
 {if $fmbSearchResultsCnt > 0}
 {if $fmbSearchResultsCnt == 1}
-                            1 r&eacute;sultat.
+                            1 result.
 {else}
-                            {$fmbSearchResultsCnt} r&eacute;sultats.
+                            {$fmbSearchResultsCnt} results.
 {/if}
 {else}
-                            Pas de r&eacute;sultats.
+                            No result.
 {/if}
 {/if}
                         </p>
@@ -35,9 +35,9 @@
 {/if}
                 <div class="top">
                     <p>
-                        <a href="#nav" title="Haut de la page">
-                            Haut de la page
+                        <a href="#nav" title="Top of page">
+                            Top of page
                         </a>
                     </p>
-                </div>    
+                </div>
             </div>

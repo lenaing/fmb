@@ -1,7 +1,7 @@
             <div id="content">
 {if isset($fmbDisplaySearch) and $fmbDisplaySearch == t}
                 <div class="research">
-                    <h2>Recherche</h2>
+                    <h2>Search</h2>
                     <form method="get" action="index.php">
                         <p>
                             <input type="hidden" name="page" value="posts"/>
@@ -12,19 +12,19 @@
 {if isset($fmbSearchResultsCnt)}
 {if $fmbSearchResultsCnt > 0}
 {if $fmbSearchResultsCnt == 1}
-                            1 r&eacute;sultat.
+                            1 result.
 {else}
-                            {$fmbSearchResultsCnt} r&eacute;sultats.
+                            {$fmbSearchResultsCnt} results.
 {/if}
 {else}
-                            Pas de r&eacute;sultats.
+                            No result.
 {/if}
 {/if}
                         </p>
                     </form>
                 </div>
 {/if}
-                <div class="date"><h2>Pas de billet</h2></div>
-                <p>D&eacute;sol&eacute;, aucun billet trouv&eacute;.</p>
-                <p>Raison : {$fmbNoPostCause}</p>
+                <div class="date"><h2>No post</h2></div>
+                <p>Sorry, no post found.</p>
+                <p>Reason : {$fmbNoPostCause}</p>
             </div>

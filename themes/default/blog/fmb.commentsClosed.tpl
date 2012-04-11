@@ -1,1 +1,1 @@
-            <div id="comments">Commentaires ferm&eacute;s pour ce billet.</div>
+            <div id="comments">Comments are closed for this post.</div>

@@ -27,6 +27,6 @@
                     </div>
                 </div>
                 <div class="top">
-                    <p><a href="#nav" title="Haut de la page">Haut de la page</a></p>
+                    <p><a href="#nav" title="Top of page">Top of page</a></p>
                 </div>
             </div>
