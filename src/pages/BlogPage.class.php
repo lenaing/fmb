@@ -154,14 +154,18 @@ class BlogPage extends Page
      */
     public function printArchives()
     {
-        // TODO : Postgresql dependent? If so, move to DB plugin.
+        $yearExtract = $this->db->getSQLExtractString('year', 'post_time');
+        $monthExtract = $this->db->getSQLExtractString('month', 'post_time');
+
+        $queryString = 'SELECT '.$yearExtract.' AS year, '.
+                        '      '.$monthExtract.' AS month, '.
+                        '       post_time '.
+                        'FROM ogsmk_blog_posts '.
+                        'WHERE post_draft = false '.
+                        'ORDER BY year DESC, month ASC';
+
         $archives = $this->db->query(
-            'SELECT EXTRACT(year FROM post_time) AS year, '.
-            '       EXTRACT(month FROM post_time) AS month, '.
-            '       post_time '.
-            'FROM ogsmk_blog_posts '.
-            'WHERE post_draft = false '.
-            'ORDER BY year DESC, month ASC',
+            $queryString,
             array(),
             DBPlugin::SQL_QUERY_ALL
         ) ? $this->db->getSQLResult() : array();
@@ -372,8 +376,7 @@ class BlogPage extends Page
             $this->tpl->assign('fmbPostID', $post['post_id']);
             $commentFormTPL = $this->style;
 
-            // TODO : Check if only postgres boolean.
-            if ('f' == $post['post_closed']) {
+            if (! $this->db->getBooleanValueFromSQL($post['post_closed'])) {
 
                 $commentFormTPL .= '/blog/fmb.commentForm.tpl';
                 $this->tpl->assign('fmbUserID', User::getUserID());

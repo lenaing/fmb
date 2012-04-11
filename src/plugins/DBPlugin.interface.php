@@ -95,12 +95,27 @@ interface DBPluginInterface
     public function getSQLSearchString($queryableCols, $searchString);
 
     /**
-     * Get SQL interval for given epoch period.
+     * Get SQL interval string for given epoch period.
      * @param string $startEpoch Epoch period start.
      * @param string $endEpoch Epoch period end.
      * @return string SQL interval string for the given epoch period.
      */
     public function getSQLIntervalString($startEpoch, $endEpoch);
+
+    /**
+     * Get SQL extract string for given element and column.
+     * @param string $what Element to extract.
+     * @param string $column Column from which we extract the element.
+     * @return string SQL extract string for given element and column.
+     */
+    public function getSQLExtractString($what, $column);
+
+    /**
+     * Get boolean value from given SQL boolean.
+     * @param string $SQLBoolean SQL boolean value.
+     * @return boolean Boolean value of given SQL boolean.
+     */
+    public function getBooleanValueFromSQL($SQLBoolean);
 }
 
 ?>
