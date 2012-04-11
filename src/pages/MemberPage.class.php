@@ -73,8 +73,9 @@ class MemberPage extends SitePage
      */
     public function printMember($memberId) {
         $found = false;
-        $this->printHTMLHeader(_('Member'));
-        $this->printHeader(_('Member'));
+
+        $this->printHTMLHeader();
+        $this->printHeader();
 
         if (!empty($memberId) && is_numeric($memberId)) {
             $query = 'SELECT * '.

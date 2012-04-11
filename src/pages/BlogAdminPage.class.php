@@ -40,7 +40,6 @@
  * @subpackage Pages
  * @author Lenain <lenaing@gmail.com>
  * @version 0.1b
- * TODO : Cache SQL / Template Queries
  */
 namespace FMB\Pages;
 use FMB\Core\Core;
@@ -65,7 +64,7 @@ class BlogAdminPage extends Page
     public function __construct()
     {
         parent::__construct('blog');
-        $this->title = _('Blog admin');
+        $this->title = _('Administration');
     }
 
     // Page interface methods.--------------------------------------------------

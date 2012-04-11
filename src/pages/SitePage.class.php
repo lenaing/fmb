@@ -40,8 +40,6 @@
  * @subpackage Pages
  * @author Lenain <lenaing@gmail.com>
  * @version 0.1b
- * TODO : Cache SQL / Template Queries
- * TODO : Enhance site page
  */
 namespace FMB\Pages;
 use FMB\Core\Core;

@@ -50,8 +50,8 @@ if (!User::isLogged() || !User::isAdmin()) {
 // Retrieve asked page
 $page = (isset($_GET['page'])) ? $_GET['page'] : '';
 
-$admin->printHTMLHeader(_('Administration'));
-$admin->printHeader(_('Administration'));
+$admin->printHTMLHeader();
+$admin->printHeader();
 
 // Default action : Add something.
 if (!isset($_GET['action'])) {

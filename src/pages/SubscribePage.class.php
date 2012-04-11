@@ -34,12 +34,12 @@
 */
 
 /**
- * TODO
+ * SubscribePage.class.php file.
+ * This file contains the sourcecode of the Subscribe Page class.
  * @package FMB
  * @subpackage Pages
  * @author Lenain <lenaing@gmail.com>
  * @version 0.1b
- * TODO : Cache SQL / Template Queries
  */
 namespace FMB\Pages;
 use FMB\Core\Core;
@@ -51,7 +51,8 @@ use FMB\Plugins\PluginEngine;
 Core::loadFile('src/pages/SitePage.class.php');
 
 /**
- * TODO
+ * SubscribePage class.
+ * This class is the subscribe view controller.
  * @package FMB
  * @subpackage Pages
  * @author Lenain <lenaing@gmail.com>
@@ -98,8 +99,8 @@ class SubscribePage extends SitePage
             }
         }
 
-        $this->printHTMLHeader(_('Inscription'));
-        $this->printHeader(_('Inscription'));
+        $this->printHTMLHeader();
+        $this->printHeader();
         $this->tpl->assign('fmbRequest', $_REQUEST);
         $this->tpl->display($this->style.'/site/fmb.subscription.tpl');
         $this->printFooter();
@@ -133,8 +134,8 @@ class SubscribePage extends SitePage
             }
         }
 
-        $this->printHTMLHeader(_('D&eacute;sinscription'));
-        $this->printHeader(_('D&eacute;sinscription'));
+        $this->printHTMLHeader();
+        $this->printHeader();
         $this->tpl->assign('fmbRequest', $_REQUEST);
         $this->tpl->display($this->style.'/site/fmb.unsubscription.tpl');
         $this->printFooter();

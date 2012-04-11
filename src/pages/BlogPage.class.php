@@ -340,7 +340,6 @@ class BlogPage extends Page
      * @param string query SQL query to fetch posts.
      * @param array values Values for SQL query.
      * @param int mode Fetch mode for SQL query.
-     * // TODO : Desc more
      */
     private function retrievePosts(
         $query,
