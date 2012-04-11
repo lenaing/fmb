@@ -9,7 +9,7 @@
 {/if}
                 <div class="post">
                     <div class="post-date">
-                        <span class="month">{$fmbPost.post_time|date_format:"%b"}</span>
+                        <span class="month">{$fmbPost.post_time|date_format:"%b"|utf8_encode}</span>
                         <span class="day">{$fmbPost.post_time|date_format:"%d"}</span>
                     </div>
                     <div class="post-title">

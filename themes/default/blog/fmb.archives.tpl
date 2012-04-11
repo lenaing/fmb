@@ -19,7 +19,7 @@
 {/if}
 {if !isset($month) or $month != $archive.month}
 {assign var=month value=$archive.month}
-                            <li><a href="index.php?page=posts&amp;y={$archive.year}&amp;m={$archive.month}">{$archive.post_time|date_format:"%B"}</a></li>
+                            <li><a href="index.php?page=posts&amp;y={$archive.year}&amp;m={$archive.month}">{$archive.post_time|date_format:"%B"|utf8_encode}</a></li>
 {/if}
                         {/foreach}
                         </ul>

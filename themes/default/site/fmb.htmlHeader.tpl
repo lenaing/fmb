@@ -5,7 +5,7 @@
         <title>{$fmbTitle} :: {$fmbPageTitle}</title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
         <meta http-equiv="Content-Style-Type" content="text/css" />
-        <link rel="icon" type="image/png" href="{$fmbTemplatesUrl}{$fmbStyle}/blog/images/favicon.png" />
+        <link rel="icon" type="image/png" href="{$fmbTemplatesUrl}{$fmbStyle}/blog/images/favicon.ico" />
         <link rel="stylesheet" type="text/css" href="{$fmbTemplatesUrl}{$fmbStyle}/blog/css/layout.css" />
         <link rel="stylesheet" type="text/css" href="{$fmbTemplatesUrl}{$fmbStyle}/blog/css/style.css" />
 {if isset($fmbRedirect)}
