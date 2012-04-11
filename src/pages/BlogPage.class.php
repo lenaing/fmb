@@ -263,6 +263,8 @@ class BlogPage extends Page
      */
     public function printPosts()
     {
+        global $fmbConf;
+        $restrictedQuery = false;
         $query = 'SELECT P.*, C.cat_title, M.mem_login, T.nb_comments '.
                  'FROM ogsmk_blog_posts AS P '.
                  'LEFT JOIN ogsmk_blog_categories AS C '.
@@ -281,6 +283,7 @@ class BlogPage extends Page
         if (isset($_GET['cat']) && is_numeric($_GET['cat'])) {
             $query .= 'AND p.post_cat = ? ';
             array_push($values, $_GET['cat']);
+            $restrictedQuery = true;
         }
 
         // Tag?
@@ -291,6 +294,7 @@ class BlogPage extends Page
                       '   WHERE tag_id = ?'.
                       ') ';
             array_push($values, $_GET['tag']);
+            $restrictedQuery = true;
         }
 
         // Specific period?
@@ -304,6 +308,7 @@ class BlogPage extends Page
             $endEpoch = mktime(0, 0, 0, ($_GET['m'] + 1), 1, $_GET['y']); 
             $query .= 'AND p.post_time ';
             $query .= $this->db->getSQLIntervalString($startEpoch, $endEpoch);
+            $restrictedQuery = true;
         }
 
         // Search?
@@ -311,9 +316,21 @@ class BlogPage extends Page
             $cols = 'p.post_body,p.post_more,p.post_title';
             $searchQueryStr = $this->db->getSQLSearchString($cols, $_GET['q']);
             $query .=  $searchQueryStr;
+            $restrictedQuery = true;
         }
 
         $query .= ' ORDER BY P.post_time DESC';
+
+        if (! $restrictedQuery) {
+            if (isset($fmbConf['blog']['lastposts'])
+                && is_numeric($fmbConf['blog']['lastposts'])) {
+                    $lastPosts = $fmbConf['blog']['lastposts'];
+            } else {
+                $lastPosts = 3;
+            }
+            $query .= ' LIMIT '.$lastPosts;
+        }
+
         $this->retrievePosts($query, $values);
     }
 
