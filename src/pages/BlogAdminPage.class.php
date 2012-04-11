@@ -258,8 +258,8 @@ class BlogAdminPage extends Page
     /**
      * Select one or more categories.
      * @param id If &lt; 0 Select all categories,
-     * 			 else select category with given
-     * 			 id.
+     *           else select category with given
+     *           id.
      */
     private function getCategories($selection)
     {
@@ -289,10 +289,10 @@ class BlogAdminPage extends Page
     /**
      * Check adding or updating a category.
      * @param update Wether we are updating a category
-     * 				 rather than adding one.
+     *               rather than adding one.
      * @return  1 : Missing parameters.
-     * 			2 : Added/Updated with success.
-     * 			-1 : Failed to add/update.
+     *          2 : Added/Updated with success.
+     *         -1 : Failed to add/update.
      */
     private function checkCategoryAdd($update)
     {
@@ -419,8 +419,8 @@ class BlogAdminPage extends Page
     /**
      * Select one or more categories.
      * @param id If &lt; 0 Select all categories,
-     * 			 else select category with given
-     * 			 id.
+     *           else select category with given
+     *           id.
      */
     private function getTags($selection)
     {
@@ -449,10 +449,10 @@ class BlogAdminPage extends Page
     /**
      * Check adding or updating a tag.
      * @param update Wether we are updating a tag
-     * 				 rather than adding one.
+     *               rather than adding one.
      * @return  1 : Missing parameters.
-     * 			2 : Added/Updated with success.
-     * 			-1 : Failed to add/update.
+     *          2 : Added/Updated with success.
+     *         -1 : Failed to add/update.
      */
     private function checkTagAdd($update)
     {
@@ -671,8 +671,8 @@ class BlogAdminPage extends Page
     /**
      * Select one or more posts.
      * @param id If &lt; 0 Select all posts,
-     * 			 else select post with given
-     * 			 id.
+     *           else select post with given
+     *           id.
      */
     private function getPosts($selection)
     {
@@ -702,11 +702,11 @@ class BlogAdminPage extends Page
     /**
      * Check adding or updating a post.
      * @param update Wether we are updating a post
-     * 				 rather than adding one.
+     *               rather than adding one.
      * @return  1 : Missing parameters.
-     * 			2 : Added/Updated with success.
-     * 			3 : Invalid time or date.
-     * 			-1 : Failed to add/update.
+     *          2 : Added/Updated with success.
+     *          3 : Invalid time or date.
+     *         -1 : Failed to add/update.
      */
     private function checkPostAdd($update)
     {

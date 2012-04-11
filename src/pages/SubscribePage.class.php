@@ -146,7 +146,7 @@ class SubscribePage extends SitePage
     /**
      * Check subscription.
      * @return  <code>true</code> if subscription is successful,
-     * 			<code>false</code> otherwise.
+     *          <code>false</code> otherwise.
      */
     private function checkSubscription() {
         return $this->db->query(
@@ -161,8 +161,8 @@ class SubscribePage extends SitePage
     /**
      * Check unsubscription.
      * @return  <code>true</code> if unsubscription is successful,
-     * 			<code>false</code> otherwise.
-     */	
+     *          <code>false</code> otherwise.
+     */
     private function checkUnsubscription() {
         $success = $this->db->query(
             'DELETE FROM ogsmk_members ' .
