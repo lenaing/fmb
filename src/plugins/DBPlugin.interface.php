@@ -93,6 +93,14 @@ interface DBPluginInterface
      * @return string SQL search string for these columns and search string.
      */
     public function getSQLSearchString($queryableCols, $searchString);
+
+    /**
+     * Get SQL interval for given epoch period.
+     * @param string $startEpoch Epoch period start.
+     * @param string $endEpoch Epoch period end.
+     * @return string SQL interval string for the given epoch period.
+     */
+    public function getSQLIntervalString($startEpoch, $endEpoch);
 }
 
 ?>

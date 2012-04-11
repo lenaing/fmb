@@ -296,19 +296,10 @@ class BlogPage extends Page
             && is_numeric($_GET['y'])
             && is_numeric($_GET['m'])
         ) {
-            // TODO : Dirty! Should be donne by the RDBMS...> Move to DB plugin.
-            $dateBeg = date(
-                        'Y-m-d H:i:s',
-                        mktime(0, 0, 0, $_GET['m'], 1, $_GET['y'])
-                    );
-            $dateEnd = date(
-                        'Y-m-d H:i:s',
-                        strtotime($dateBeg.' +1 month')
-                    );
-
-            $query .= 'AND p.post_time BETWEEN ? AND ? ';
-            array_push($values, $dateBeg);
-            array_push($values, $dateEnd);
+            $startEpoch = mktime(0, 0, 0, $_GET['m'], 1, $_GET['y']);
+            $endEpoch = mktime(0, 0, 0, ($_GET['m'] + 1), 1, $_GET['y']); 
+            $query .= 'AND p.post_time ';
+            $query .= $this->db->getSQLIntervalString($startEpoch, $endEpoch);
         }
 
         // Search?
