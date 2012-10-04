@@ -5,7 +5,7 @@
 {/if}
 {if isset($fmbTagModOk)}
 {if $fmbTagModOk == t}
-                <div class="information">Tag modifi&eacute; avec succ&eagrave;s.</div>
+                <div class="information">Tag modifi&eacute; avec succ&egrave;s.</div>
 {else}
                 <div class="error">&Eacute;chec lors de la modification du tag.</div>
 {/if}

@@ -290,9 +290,9 @@ class BlogAdminPage extends Page
      * Check adding or updating a category.
      * @param update Wether we are updating a category
      *               rather than adding one.
-     * @return  1 : Missing parameters.
-     *          2 : Added/Updated with success.
-     *         -1 : Failed to add/update.
+     * @return  0 : Added/Updated with success.
+     *          1 : Missing parameters.
+     *          2 : Failed to add/update.
      */
     private function checkCategoryAdd($update)
     {
@@ -313,7 +313,7 @@ class BlogAdminPage extends Page
                         array($_POST['title'], $_POST['desc'], $_POST['id']),
                         DBPlugin::SQL_QUERY_MANIP
                     )
-                ) ? 2 : -1;
+                ) ? 0 : 2;
             } else {
                 // Adding a category.
                 return (
@@ -324,7 +324,7 @@ class BlogAdminPage extends Page
                         array($_POST['title'], $_POST['desc']),
                         DBPlugin::SQL_QUERY_MANIP
                     )
-                ) ? 2 : -1;
+                ) ? 0 : 2;
             }
         }
     }
@@ -450,9 +450,9 @@ class BlogAdminPage extends Page
      * Check adding or updating a tag.
      * @param update Wether we are updating a tag
      *               rather than adding one.
-     * @return  1 : Missing parameters.
-     *          2 : Added/Updated with success.
-     *         -1 : Failed to add/update.
+     * @return  0 : Added/Updated with success.
+     *          1 : Missing parameters.
+     *          2 : Failed to add/update.
      */
     private function checkTagAdd($update)
     {
@@ -473,7 +473,7 @@ class BlogAdminPage extends Page
                         array($_POST['title'],$_POST['desc'], $_POST['id']),
                         DBPlugin::SQL_QUERY_MANIP
                     )
-                ) ? 2 : -1;
+                ) ? 0 : 2;
             } else {
                 // Adding a tag.
                 return (
@@ -484,7 +484,7 @@ class BlogAdminPage extends Page
                         array($_POST['title'], $_POST['desc']),
                         DBPlugin::SQL_QUERY_MANIP
                     )
-                ) ? 2 : -1;
+                ) ? 0 : 2;
             }
         }
     }
@@ -703,10 +703,10 @@ class BlogAdminPage extends Page
      * Check adding or updating a post.
      * @param update Wether we are updating a post
      *               rather than adding one.
-     * @return  1 : Missing parameters.
-     *          2 : Added/Updated with success.
-     *          3 : Invalid time or date.
-     *         -1 : Failed to add/update.
+     * @return  0 : Added/Updated with success.
+     *          1 : Missing parameters.
+     *          2 : Invalid time or date.
+     *          3 : Failed to add/update.
      */
     private function checkPostAdd($update)
     {
@@ -733,7 +733,7 @@ class BlogAdminPage extends Page
                    || !checkdate($_POST['month'], $_POST['day'], $_POST['year'])
                   ) {
             // Invalid date or hour
-            return 3;
+            return 2;
         } else {
 
             $title = $_POST['title'];
@@ -748,7 +748,7 @@ class BlogAdminPage extends Page
             $postID = $_POST['id'];
 
             if ($update) {
-                // Updating a category.
+                // Updating a post.
                 return (
                     $this->db->query(
                         'UPDATE fmb_blog_posts ' .
@@ -768,9 +768,9 @@ class BlogAdminPage extends Page
                               $postID),
                         DBPlugin::SQL_QUERY_MANIP
                     )
-                ) ? 2 : -1;
+                ) ? 0 : 3;
             } else {
-                // Adding a category.
+                // Adding a post.
                 return (
                     $this->db->query(
                         'INSERT INTO fmb_blog_posts ' .
@@ -789,7 +789,7 @@ class BlogAdminPage extends Page
                               $userID),
                         DBPlugin::SQL_QUERY_MANIP
                     )
-                ) ? 2 : -1;
+                ) ? 0 : 3;
             }
         }
     }

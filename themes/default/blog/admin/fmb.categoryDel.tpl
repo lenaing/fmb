@@ -8,7 +8,7 @@
 {/if}
 {if isset($fmbCatDelOk)}
 {if $fmbCatDelOk == t}
-                <div class="information">Cat&eacute;gorie supprim&eacute;e avec succ&eagrave;s.</div>
+                <div class="information">Cat&eacute;gorie supprim&eacute;e avec succ&egrave;s.</div>
 {else}
                 <div class="error">&Eacute;chec lors de la suppression de la cat&eacute;gorie.</div>
 {/if}

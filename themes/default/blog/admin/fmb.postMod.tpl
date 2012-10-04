@@ -5,7 +5,7 @@
 {/if}
 {if isset($fmbPostModOk)}
 {if $fmbPostModOk == t}
-                <div class="information">Billet modifi&eacute; avec succ&eagrave;.</div>
+                <div class="information">Billet modifi&eacute; avec succ&egrave;.</div>
 {else}
                 <div class="error">&Eacute;chec lors de la modification du billet.</div>
 {/if}

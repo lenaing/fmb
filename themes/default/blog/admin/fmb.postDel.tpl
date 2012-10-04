@@ -5,7 +5,7 @@
 {/if}
 {if isset($fmbPostDelOk)}
 {if $fmbPostDelOk == t}
-                <div class="information">Billet supprim&eacute; avec succ&eagrave;s.</div>
+                <div class="information">Billet supprim&eacute; avec succ&egrave;s.</div>
 {else}
                 <div class="error">&Eacute;chec lors de la suppression du billet.</div>
 {/if}

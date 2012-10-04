@@ -11,7 +11,7 @@
 {if isset($fmbTagUpdOk)}
 {if $fmbTagUpdOk == 1}
                 <div class="error">Veuillez remplir tous les champs marqu&eacute;s d'une &eacute;toile.</div>
-{elseif $fmbTagUpdOk == -1}
+{elseif $fmbTagUpdOk == 2}
                 <div class="error">
 {if isset($fmbAction) and $fmbAction == "add"}
                     Erreur lors de l'ajout du tag.
@@ -20,12 +20,12 @@
 {/if}
                 </div>
 {/if}
-{if $fmbTagUpdOk == 2}
+{if $fmbTagUpdOk == 0}
                 <div class="information">
 {if isset($fmbAction) and $fmbAction == "add"}
-                    Tag ajout&eacute; avec succ&eagrave;s.
+                    Tag ajout&eacute; avec succ&egrave;s.
 {else}
-                    Tag modifi&eacute; avec succ&eagrave;s.
+                    Tag modifi&eacute; avec succ&egrave;s.
 {/if}
                 </div>
 {/if}

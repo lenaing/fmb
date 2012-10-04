@@ -11,7 +11,7 @@
 {if isset($fmbCatUpdOk)}
 {if $fmbCatUpdOk == 1}
                 <div class="error">Veuillez remplir tous les champs marqu&eacute;s d'une &eacute;toile.</div>
-{elseif $fmbCatUpdOk == -1}
+{elseif $fmbCatUpdOk == 2}
                 <div class="error">
 {if isset($fmbAction) and $fmbAction == "add"}
                     Erreur lors de l'ajout de la cat&eacute;gorie.
@@ -20,12 +20,12 @@
 {/if}
                 </div>
 {/if}
-{if $fmbCatUpdOk == 2}
+{if $fmbCatUpdOk == 0}
                 <div class="information">
 {if isset($fmbAction) and $fmbAction == "add"}
-                    Cat&eacute;gorie ajout&eacute;e avec succ&eagrave;s.
+                    Cat&eacute;gorie ajout&eacute;e avec succ&egrave;s.
 {else}
-                    Cat&eacute;gorie modifi&eacute;e avec succ&eagrave;s.
+                    Cat&eacute;gorie modifi&eacute;e avec succ&egrave;s.
 {/if}
                 </div>
 {/if}

@@ -5,7 +5,7 @@
 {/if}
 {if isset($fmbTagDelOk)}
 {if $fmbTagDelOk == t}
-                <div class="information">Tag supprim&eacute; avec succès.</div>
+                <div class="information">Tag supprim&eacute; avec succ&egrave;s.</div>
 {else}
                 <div class="error">&Eacute;chec lors de la suppression du tag.</div>
 {/if}
