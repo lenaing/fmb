@@ -15,7 +15,7 @@
                 <div class="error">Date ou heure invalide.</div>
 {elseif $fmbPostUpdOk == -1}
                 <div class="error">
-{if $ogsmk_action == "add"}
+{if $fmbAction == "add"}
                     Erreur lors de l'ajout du billet.
 {else}
                     Erreur lors de la modification du billet.

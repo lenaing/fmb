@@ -83,7 +83,7 @@ class SubscribePage extends SitePage
         ) {
             $members = $this->db->query(
                 'SELECT * ' .
-                'FROM ogsmk_members ' .
+                'FROM fmb_members ' .
                 'WHERE mem_login = ?',
                 array($_REQUEST['login']),
                 DBPlugin::SQL_QUERY_FIRST
@@ -115,7 +115,7 @@ class SubscribePage extends SitePage
         if (!empty($_REQUEST['password'])) {
             $members = $this->db->query(
                     'SELECT * ' .
-                    'FROM ogsmk_members ' .
+                    'FROM fmb_members ' .
                     'WHERE mem_login = ? AND mem_passwd = ?',
                     array($_SESSION['usrLogin'], sha1($_REQUEST['password'])),
                     DBPlugin::SQL_QUERY_FIRST
@@ -150,7 +150,7 @@ class SubscribePage extends SitePage
      */
     private function checkSubscription() {
         return $this->db->query(
-            'INSERT INTO ogsmk_members ' .
+            'INSERT INTO fmb_members ' .
             '(mem_login, mem_passwd, mem_rights) VALUES ' .
             '(?, ?, ?)',
             array($_REQUEST['login'], sha1($_REQUEST['password']), 2),
@@ -165,7 +165,7 @@ class SubscribePage extends SitePage
      */
     private function checkUnsubscription() {
         $success = $this->db->query(
-            'DELETE FROM ogsmk_members ' .
+            'DELETE FROM fmb_members ' .
             'WHERE mem_login = ? ',
             array($_SESSION['usrLogin']),
             DBPlugin::SQL_QUERY_MANIP

@@ -132,7 +132,7 @@ class BlogPage extends Page
     {
         $categories = $this->db->query(
             'SELECT * '.
-            'FROM ogsmk_blog_categories '.
+            'FROM fmb_blog_categories '.
             'ORDER BY cat_id',
             array(),
             DBPlugin::SQL_QUERY_ALL
@@ -160,7 +160,7 @@ class BlogPage extends Page
         $queryString = 'SELECT '.$yearExtract.' AS year, '.
                         '      '.$monthExtract.' AS month, '.
                         '       post_time '.
-                        'FROM ogsmk_blog_posts '.
+                        'FROM fmb_blog_posts '.
                         'WHERE post_draft = false '.
                         'ORDER BY year DESC, month ASC';
 
@@ -200,14 +200,14 @@ class BlogPage extends Page
     {
         if (is_numeric($postID)) {
             $query = 'SELECT P.*, C.cat_title, M.mem_login, T.nb_comments '.
-                     'FROM ogsmk_blog_posts AS P '.
-                     'LEFT JOIN ogsmk_blog_categories AS C '.
+                     'FROM fmb_blog_posts AS P '.
+                     'LEFT JOIN fmb_blog_categories AS C '.
                      '          ON C.cat_id = P.post_cat '.
-                     'LEFT JOIN ogsmk_members AS M '.
+                     'LEFT JOIN fmb_members AS M '.
                      '          ON M.mem_id = P.post_mem '.
                      'LEFT JOIN ( '.
                      '    SELECT COUNT(*) AS nb_comments, com_post '.
-                     '    FROM ogsmk_blog_comments '.
+                     '    FROM fmb_blog_comments '.
                      '    GROUP BY com_post'.
                      ') AS T on T.com_post = P.post_id '.
                      'WHERE P.post_draft = FALSE AND P.post_id = ?';
@@ -240,14 +240,14 @@ class BlogPage extends Page
         }
 
         $query = 'SELECT P.*, C.cat_title, M.mem_login, T.nb_comments '.
-                 'FROM ogsmk_blog_posts AS P '.
-                 'LEFT JOIN ogsmk_blog_categories AS C '.
+                 'FROM fmb_blog_posts AS P '.
+                 'LEFT JOIN fmb_blog_categories AS C '.
                  '           ON C.cat_id = P.post_cat '.
-                 'LEFT JOIN ogsmk_members AS M '.
+                 'LEFT JOIN fmb_members AS M '.
                  '           ON M.mem_id = P.post_mem '.
                  'LEFT JOIN ( '.
                  '    SELECT COUNT(*) AS nb_comments, com_post '.
-                 '    FROM ogsmk_blog_comments '.
+                 '    FROM fmb_blog_comments '.
                  '    GROUP BY com_post'.
                  ') AS T on T.com_post = P.post_id '.
                  'WHERE P.post_draft = FALSE '.
@@ -266,14 +266,14 @@ class BlogPage extends Page
         global $fmbConf;
         $restrictedQuery = false;
         $query = 'SELECT P.*, C.cat_title, M.mem_login, T.nb_comments '.
-                 'FROM ogsmk_blog_posts AS P '.
-                 'LEFT JOIN ogsmk_blog_categories AS C '.
+                 'FROM fmb_blog_posts AS P '.
+                 'LEFT JOIN fmb_blog_categories AS C '.
                  '           ON C.cat_id = P.post_cat '.
-                 'LEFT JOIN ogsmk_members AS M '.
+                 'LEFT JOIN fmb_members AS M '.
                  '           ON M.mem_id = P.post_mem '.
                  'LEFT JOIN ( '.
                  '    SELECT COUNT(*) AS nb_comments, com_post '.
-                 '    FROM ogsmk_blog_comments '.
+                 '    FROM fmb_blog_comments '.
                  '    GROUP BY com_post'.
                  ') AS T on T.com_post = P.post_id '.
                  'WHERE P.post_draft = FALSE ';
@@ -290,7 +290,7 @@ class BlogPage extends Page
         if (isset($_GET['tag']) && is_numeric($_GET['tag'])) {
             $query .= 'AND p.post_id IN ('.
                       '   SELECT DISTINCT post_id '.
-                      '   FROM ogsmk_blog_tags_rel '.
+                      '   FROM fmb_blog_tags_rel '.
                       '   WHERE tag_id = ?'.
                       ') ';
             array_push($values, $_GET['tag']);
@@ -425,8 +425,8 @@ class BlogPage extends Page
 
         foreach ($postsArray as $post) {
             $query = 'SELECT T.* '.
-                     'FROM ogsmk_blog_tags_rel R '.
-                     'LEFT JOIN ogsmk_blog_tags T '.
+                     'FROM fmb_blog_tags_rel R '.
+                     'LEFT JOIN fmb_blog_tags T '.
                      '           ON R.tag_id = T.tag_id '.
                      'WHERE post_id = ?';
 
@@ -475,7 +475,7 @@ class BlogPage extends Page
         // TODO : Check params.
         $comments = $this->db->query(
             'SELECT * '.
-            'FROM ogsmk_blog_comments '.
+            'FROM fmb_blog_comments '.
             'WHERE com_post = ?',
             array($postID),
             DBPlugin::SQL_QUERY_ALL
@@ -518,7 +518,7 @@ class BlogPage extends Page
                 // Everything is fine, entering the comment in the DB
                 $ip = getenv('REMOTE_ADDR');
                 $host = gethostbyaddr($ip);
-                $query ='INSERT INTO ogsmk_blog_comments '.
+                $query ='INSERT INTO fmb_blog_comments '.
                         '(com_body, com_name, com_mail, com_time, '.
                         'com_host, com_ip, com_post, com_mem) VALUES ' .
                         '(?, ?, ?, ?, ?, ?, ?, ?)';

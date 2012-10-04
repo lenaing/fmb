@@ -79,7 +79,7 @@ class MemberPage extends SitePage
 
         if (!empty($memberId) && is_numeric($memberId)) {
             $query = 'SELECT * '.
-                     'FROM ogsmk_members '.
+                     'FROM fmb_members '.
                      'WHERE mem_id = ?';
             $member = 
                 $this->db->query(

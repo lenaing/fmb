@@ -228,7 +228,7 @@ class BlogAdminPage extends Page
 
                 // Putting all post in this category to the general one.
                 $this->db->query(
-                    'UPDATE ogsmk_blog_posts ' .
+                    'UPDATE fmb_blog_posts ' .
                     'SET post_cat = ? ' .
                     'WHERE post_cat = ?',
                     array(0, $_POST['id']),
@@ -239,7 +239,7 @@ class BlogAdminPage extends Page
 
                 // Deleting this category.
                 $delOk = $this->db->query(
-                    'DELETE FROM ogsmk_blog_categories ' .
+                    'DELETE FROM fmb_blog_categories ' .
                     'WHERE cat_id = ?',
                     array($_POST['id']),
                     DBPlugin::SQL_QUERY_MANIP
@@ -267,7 +267,7 @@ class BlogAdminPage extends Page
             return (
                 $this->db->query(
                     'SELECT * ' .
-                    'FROM ogsmk_blog_categories ' .
+                    'FROM fmb_blog_categories ' .
                     'ORDER BY cat_id',
                     array(),
                     DBPlugin::SQL_QUERY_ALL
@@ -277,7 +277,7 @@ class BlogAdminPage extends Page
             return (
                 $this->db->query(
                     'SELECT * '.
-                    'FROM ogsmk_blog_categories ' .
+                    'FROM fmb_blog_categories ' .
                     'WHERE cat_id = ?',
                     array($selection),
                     DBPlugin::SQL_QUERY_FIRST
@@ -307,7 +307,7 @@ class BlogAdminPage extends Page
                 // Updating a category.
                 return (
                     $this->db->query(
-                        'UPDATE ogsmk_blog_categories ' .
+                        'UPDATE fmb_blog_categories ' .
                         'SET cat_title = ?, cat_desc = ? ' .
                         'WHERE cat_id = ?',
                         array($_POST['title'], $_POST['desc'], $_POST['id']),
@@ -318,7 +318,7 @@ class BlogAdminPage extends Page
                 // Adding a category.
                 return (
                     $this->db->query(
-                        'INSERT INTO ogsmk_blog_categories ' .
+                        'INSERT INTO fmb_blog_categories ' .
                         '(cat_title, cat_desc) VALUES '.
                         '(?, ?)',
                         array($_POST['title'], $_POST['desc']),
@@ -403,7 +403,7 @@ class BlogAdminPage extends Page
             if (!isset($delErr)) {
                 // Deleting this tag.
                 $delOk = $this->db->query(
-                    'DELETE FROM ogsmk_blog_tags ' .
+                    'DELETE FROM fmb_blog_tags ' .
                     'WHERE tag_id = ?',
                     array($_POST['id']),
                     DBPlugin::SQL_QUERY_MANIP
@@ -428,7 +428,7 @@ class BlogAdminPage extends Page
             return (
                 $this->db->query(
                     'SELECT * ' .
-                    'FROM ogsmk_blog_tags',
+                    'FROM fmb_blog_tags',
                     array(),
                     DBPlugin::SQL_QUERY_ALL
                 )
@@ -437,7 +437,7 @@ class BlogAdminPage extends Page
             return (
                 $this->db->query(
                     'SELECT * ' .
-                    'FROM ogsmk_blog_tags ' .
+                    'FROM fmb_blog_tags ' .
                     'WHERE tag_id = ?',
                     array($selection),
                     DBPlugin::SQL_QUERY_FIRST
@@ -467,7 +467,7 @@ class BlogAdminPage extends Page
                 // Updating a tag.
                 return (
                     $this->db->query(
-                        'UPDATE ogsmk_blog_tags ' .
+                        'UPDATE fmb_blog_tags ' .
                         'SET tag_title = ?, tag_desc = ? ' .
                         'WHERE tag_id = ?',
                         array($_POST['title'],$_POST['desc'], $_POST['id']),
@@ -478,7 +478,7 @@ class BlogAdminPage extends Page
                 // Adding a tag.
                 return (
                     $this->db->query(
-                        'INSERT INTO ogsmk_blog_tags ' .
+                        'INSERT INTO fmb_blog_tags ' .
                         '(tag_title, tag_desc) VALUES '.
                         '(?, ?)',
                         array($_POST['title'], $_POST['desc']),
@@ -589,7 +589,7 @@ class BlogAdminPage extends Page
                 
                 // Deleting this post.
                 $delOk = $this->db->query(
-                    'DELETE FROM ogsmk_blog_posts ' .
+                    'DELETE FROM fmb_blog_posts ' .
                     'WHERE post_id = ?',
                     array($_POST['id']),
                     DBPlugin::SQL_QUERY_MANIP
@@ -618,14 +618,14 @@ class BlogAdminPage extends Page
                 }
             } else if ($_POST['actionDB'] == 'assignTagToPost') {
                 $this->db->query(
-                    'DELETE FROM ogsmk_blog_tags_rel ' .
+                    'DELETE FROM fmb_blog_tags_rel ' .
                     'WHERE post_id = ?',
                     array($_POST['id']),
                     DBPlugin::SQL_QUERY_MANIP
                 );
 
                 if ($_POST['tags'][0] != '-1') {
-                    $query = 'INSERT INTO ogsmk_blog_tags_rel ' .
+                    $query = 'INSERT INTO fmb_blog_tags_rel ' .
                              '(post_id, tag_id) VALUES ';
                     $values = array();
 
@@ -648,7 +648,7 @@ class BlogAdminPage extends Page
                 $postTags = (
                     $this->db->query(
                         'SELECT tag_id '.
-                        'FROM ogsmk_blog_tags_rel '.
+                        'FROM fmb_blog_tags_rel '.
                         'WHERE post_id = ?',
                         array($_POST['id']),
                         DBPlugin::SQL_QUERY_ALL
@@ -680,7 +680,7 @@ class BlogAdminPage extends Page
             return (
                 $this->db->query(
                     'SELECT post_id, post_title, post_time '.
-                    'FROM ogsmk_blog_posts '.
+                    'FROM fmb_blog_posts '.
                     'ORDER BY post_time DESC',
                     array(),
                     DBPlugin::SQL_QUERY_ALL
@@ -690,7 +690,7 @@ class BlogAdminPage extends Page
             return (
                 $this->db->query(
                     'SELECT * '.
-                    'FROM ogsmk_blog_posts '.
+                    'FROM fmb_blog_posts '.
                     'WHERE post_id = ?',
                     array($selection),
                     DBPlugin::SQL_QUERY_FIRST
@@ -751,7 +751,7 @@ class BlogAdminPage extends Page
                 // Updating a category.
                 return (
                     $this->db->query(
-                        'UPDATE ogsmk_blog_posts ' .
+                        'UPDATE fmb_blog_posts ' .
                         'SET post_title = ?, post_body = ? ,' .
                         'post_more = ?, post_time = ?,' .
                         'post_closed = ?, post_draft = ?,' .
@@ -773,7 +773,7 @@ class BlogAdminPage extends Page
                 // Adding a category.
                 return (
                     $this->db->query(
-                        'INSERT INTO ogsmk_blog_posts ' .
+                        'INSERT INTO fmb_blog_posts ' .
                         '(post_title, post_body, ' .
                         ' post_more, post_time, ' .
                         ' post_closed, post_draft, ' .

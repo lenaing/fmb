@@ -97,7 +97,7 @@ class LoginPage extends SitePage
     private function checkLogin() {
         $user = $this->db->query(
                 'SELECT * ' .
-                'FROM ogsmk_members ' .
+                'FROM fmb_members ' .
                 'WHERE mem_login = ? AND mem_passwd = ?',
                 array($_REQUEST['login'], sha1($_REQUEST['password'])),
                 DBPlugin::SQL_QUERY_FIRST
