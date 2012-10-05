@@ -138,12 +138,9 @@ class BlogPage extends Page
             DBPlugin::SQL_QUERY_ALL
         ) ? $this->db->getSQLResult() : array();
 
-        $links = $this->tpl->fetch($this->style.'/blog/fmb.links.tpl');
-
         $this->tpl->assign('fmbIsLogged', User::isLogged());
         $this->tpl->assign('fmbIsAdmin', User::isAdmin());
         $this->tpl->assign('fmbBlogCategories', $categories);
-        $this->tpl->assign('fmbBlogLinks', $links);
 
         return $this->tpl->fetch($this->style.'/blog/fmb.menu.tpl');
     }

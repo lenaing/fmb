@@ -19,7 +19,7 @@
 {/if}
                         </ul>
                     </li>
-                    <li>    
+                    <li>
                         <h2>Categories</h2>
                         <ul>
 {foreach from=$fmbBlogCategories item=category}
@@ -36,9 +36,6 @@
                                 <input value="Go!" type="submit" />
                             </p>
                         </form>
-                    </li>
-                    <li>
-{$fmbBlogLinks}
                     </li>
                     <li>
                         <h2>Validations</h2>
