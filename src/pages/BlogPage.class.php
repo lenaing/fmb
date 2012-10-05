@@ -395,10 +395,9 @@ class BlogPage extends Page
             if (! $this->db->getBooleanValueFromSQL($post['post_closed'])) {
 
                 $commentFormTPL .= '/blog/fmb.commentForm.tpl';
+                $this->checkComment();
                 $this->tpl->assign('fmbUserID', User::getUserID());
                 $this->tpl->assign('fmbUserLogin', User::getUserLogin());
-
-                $this->checkComment();
 
             } else {
                 $commentFormTPL .= '/blog/fmb.commentsClosed.tpl';
@@ -504,7 +503,11 @@ class BlogPage extends Page
 
             // Anonymous comment posting
             if (empty($_POST['com_name'])) {
-                $_POST['com_name'] = _('Anonymous');
+                if (-1 == User::getUserID()) {
+                    $_POST['com_name'] = _('Anonymous');
+                } else {
+                    $_POST['com_name'] = User::getUserLogin();
+                }
             }
 
             // No body
