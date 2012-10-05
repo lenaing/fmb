@@ -493,13 +493,18 @@ class BlogPage extends Page
     {
 
         if (isset($_POST['action']) && ($_POST['action'] == 'addComment')) {
-            $errorName = false;
+            $errorUID = false;
             $errorBody = false;
 
-            // No name
+            // Check uid for tampering
+            if (empty($_POST['user_id']) || ($_POST['user_id'] != User::getUserID())) {
+                $errorUID = true;
+                $this->tpl->assign('fmbCommentUIDError', $errorUID);
+            }
+
+            // Anonymous comment posting
             if (empty($_POST['com_name'])) {
-                $errorName = true;
-                $this->tpl->assign('fmbCommentNameError', $errorName);
+                $_POST['com_name'] = _('Anonymous');
             }
 
             // No body
@@ -513,7 +518,7 @@ class BlogPage extends Page
                 $_SESSION['usrLogin'] = $_POST['com_name'];
             }
 
-            if (!$errorName && !$errorBody) {
+            if (!$errorUID && !$errorBody) {
 
                 // Everything is fine, entering the comment in the DB
                 $ip = getenv('REMOTE_ADDR');

@@ -10,8 +10,8 @@
                     </div>
 {/if}
                     <form method="post" action="#comment-form">
-{if isset($fmbCommentNameError) && $fmbCommentNameError == t}
-                        <div class="error">You must enter a name.</div>
+{if isset($fmbCommentUIDError) && $fmbCommentUIDError == t}
+                        <div class="error">Invalid user ID.</div>
 {/if}
 {if isset($fmbCommentBodyError) && $fmbCommentBodyError == t}
                         <div class="error">You must enter a comment.</div>
