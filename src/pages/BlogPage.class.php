@@ -392,6 +392,15 @@ class BlogPage extends Page
             if (! $this->db->getBooleanValueFromSQL($post['post_closed'])) {
 
                 $commentFormTPL .= '/blog/fmb.commentForm.tpl';
+
+                // Captcha
+                if ($this->plugEng->existPluginOfType('captcha')) {
+                    $tmpLabel = $this->plugEng->doHookConcat('getCaptchaLabel');
+                    $tmpInput = $this->plugEng->doHookConcat('getCaptchaInput');
+                    $this->tpl->assign('fmbCaptchaLabel', $tmpLabel);
+                    $this->tpl->assign('fmbCaptchaInput', $tmpInput);
+                }
+
                 $this->checkComment();
                 $this->tpl->assign('fmbUserID', User::getUserID());
                 $this->tpl->assign('fmbUserLogin', User::getUserLogin());
@@ -516,6 +525,15 @@ class BlogPage extends Page
             // Remember comment name
             if (isset($_POST['remember'])) {
                 $_SESSION['usrLogin'] = $_POST['com_name'];
+            }
+
+            // Captcha
+            if ($this->plugEng->existPluginOfType('captcha')) {
+                if(!$this->plugEng->doHookConcatBoolean('checkCaptcha')) {
+                    $errorCaptcha = true;
+                    $this->tpl->assign('fmbCommentCaptchaError', $errorCaptcha);
+                    return;
+                }
             }
 
             if (!$errorUID && !$errorBody) {

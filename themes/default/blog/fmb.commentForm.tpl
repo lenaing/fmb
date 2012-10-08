@@ -16,16 +16,25 @@
 {if isset($fmbCommentBodyError) && $fmbCommentBodyError == t}
                         <div class="error">You must enter a comment.</div>
 {/if}
+{if isset($fmbCommentCaptchaError) && $fmbCommentCaptchaError == t}
+                        <div class="error">The CAPTCHA you entered is invalid. Please try again.</div>
+{/if}
                         <fieldset>
                             <div class="labels">
                                 <p><label for="com_name">Name / Nickname:</label></p>
                                 <p><label for="remember">Remember my name?</label></p>
                                 <p><label for="com_mail">Email / Website:</label></p>
+{if isset($fmbCaptchaLabel)}
+                                <p>{$fmbCaptchaLabel}</p>
+{/if}
                             </div>
                             <div class="inputs">
                                 <p><input name="com_name" id="com_name" value="{if isset($fmbUserLogin)}{$fmbUserLogin}{/if}" /></p>
                                 <p><input name="remember" id="remember" type="checkbox" /></p>
                                 <p><input name="com_mail" id="com_mail" /></p>
+{if isset($fmbCaptchaInput)}
+                                <p>{$fmbCaptchaInput}</p>
+{/if}
                             </div>
                             <div class="comment-body">
                                 <p><label for="com_body">Your comment:</label></p>

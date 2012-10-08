@@ -377,6 +377,38 @@ class PluginEngine extends Singleton
     }
 
     /**
+     * Execute given hook with eventual parameters and concat every results
+     * as booleans before returning them.
+     * @access public
+     * @param string $hookName Name of the hook to execute.
+     * @param array $parameters Parameters to pass to plugins methods.
+     * @return string The concatenated answers of all plugins to this hook.
+     *                If a single answer is false, the result will be false.
+     *                Otherwise the result will be true.
+     */
+    public function doHookConcatBoolean($hookName, $parameters = NULL)
+    {
+        $result = true;
+
+        if (isset(self::$_pluginsHooks["$hookName"])
+                && is_array(self::$_pluginsHooks["$hookName"])) {
+
+            /* Search for loaded plugins. */
+            foreach (self::$_pluginsHooks["$hookName"] as $hook) {
+                $plugin = self::getPlugin($hook['pluginName']);
+
+                if (NULL != $plugin) {
+                    if (method_exists($plugin, $hook['pluginMethod'])) {
+                        $result &= $plugin->$hook['pluginMethod']($parameters);
+                    }
+                }
+            }
+        }
+
+        return $result;
+    }
+
+    /**
      * Check required FMB version for given plugin.
      * @access private
      * @param class $plugin Plugin instance.
