@@ -328,6 +328,7 @@ class PluginEngine extends Singleton
     public function doHookFunction($hookName, $parameters = NULL)
     {
         $result = NULL;
+        $params = $parameters;
 
         if (isset(self::$_pluginsHooks["$hookName"])
                 && is_array(self::$_pluginsHooks["$hookName"])) {
@@ -337,7 +338,10 @@ class PluginEngine extends Singleton
                 $plugin = self::getPlugin($hook['pluginName']);
                 if (NULL != $plugin) {
                     if (method_exists($plugin, $hook['pluginMethod'])) {
-                        $result = $plugin->$hook['pluginMethod']($parameters);
+                        $result = $plugin->$hook['pluginMethod']($params);
+                        if ($hookName == "format") {
+                            $params[0] = $result;
+                        }
                     }
                 }
             }
