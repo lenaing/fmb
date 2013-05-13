@@ -108,6 +108,11 @@ abstract class Page implements PageInterface
         $this->db = $fmbPluginEngine->getDatabasePlugin();
         $this->plugEng = $fmbPluginEngine;
 
+        if (null != $this->tpl && $this->plugEng->existPluginOfType('template_extend')) {
+            $tmpArray = array(&$this->tpl);
+            $this->plugEng->doHookFunction('extend', $tmpArray);
+        }
+
         if (isset($fmbConf['style']) && !empty($fmbConf['style'])) {
             $this->style = $fmbConf['style'];
         } else {

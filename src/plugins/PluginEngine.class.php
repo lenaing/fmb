@@ -328,7 +328,7 @@ class PluginEngine extends Singleton
     public function doHookFunction($hookName, $parameters = NULL)
     {
         $result = NULL;
-        $params = $parameters;
+        $params = &$parameters;
 
         if (isset(self::$_pluginsHooks["$hookName"])
                 && is_array(self::$_pluginsHooks["$hookName"])) {
