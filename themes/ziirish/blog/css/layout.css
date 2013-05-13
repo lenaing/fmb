@@ -1,0 +1,243 @@
+/* All elements */
+* {
+    margin:0;
+    padding:0;
+}
+
+body {
+    text-align:center;
+	background-color:#FFFFFF;
+	background: url("../images/bg.gif");
+}
+
+#main {
+    text-align:left;
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom:15px;
+    width:800px;
+    background: url("../images/global.png") /*#fff4de*/;
+}
+
+/******************************************************************************/
+/* Header                                                                     */
+/******************************************************************************/
+#header {
+	height: 258px;
+	border-bottom: 2px solid #eaeaea;
+	position: relative;
+}
+
+#header-text  {
+    float: right;
+    margin:30px;
+}
+
+/******************************************************************************/
+/* Navigation bar                                                             */
+/******************************************************************************/
+#nav {
+/*    text-align:right;*/
+	list-style: none;
+	margin: 0px;
+	position: absolute;
+	right: 10px;
+	bottom: 0px;
+}
+
+#nav li {
+    float: left;
+    margin-left: 5px;
+/*    display:inline;*/
+}
+
+/******************************************************************************/
+/* Sidebar                                                                    */
+/******************************************************************************/
+#sidebar {
+    float:left;
+    width:178px;
+    background: #FFF4DE;
+}
+
+/*
+#sidebar ul li ul li, #sidebar ul li p {
+    padding-left:10px;
+}
+*/
+
+#sidebar h2 {
+    color: #FFA500;
+    margin-left: 10px;
+    padding-top: 10px;
+}
+
+#sidebar #tags {
+	border: 1px dashed;
+}
+
+#sidebar #tags .tag {
+	border-left: 0px;
+	padding: 0px;
+}
+
+#sidebar li a {
+	display: block;
+	text-decoration: none;
+	border-left:5px solid #FFA500; /* couleur bord gauche ligne menu */
+	padding:3px;
+	padding-left:5px;
+}
+
+#sidebar li a:hover {
+    background-color: #FFA500;
+    color: #00844A;
+}
+
+#content {
+    float:right;
+    width:600px;
+}
+
+/******************************************************************************/
+/* Content                                                                    */
+/******************************************************************************/
+/*
+#content {
+    margin-bottom:10px;
+}
+*/
+
+#content * li, #content * ul, #content * ol {
+    margin-left:20px;
+}
+
+.information, .warning, .error, .top {
+    padding-left:20px;
+}
+/******************************************************************************/
+/* Posts                                                                      */
+/******************************************************************************/
+.post {
+    margin-top:10px;
+}
+
+.post .post-date {
+    width:48px;
+    height:48px;
+    float:left;
+    text-align:center;
+}
+
+.post .post-title {
+    float:left;
+    width:545px;
+}
+
+.post .post-infos, .post .post-title {
+    padding-left:5px;
+}
+
+.post .post-infos, .post .post-entry {
+    clear:both;
+}
+
+.post .tags, .post .add-comment, .post .comments {
+    float:right;
+    padding-left:20px;
+    margin-right:5px;
+}
+
+.post .post-entry, .post .post-more {
+    padding:10px;
+}
+/******************************************************************************/
+/* Comments                                                                   */
+/******************************************************************************/
+#comments h3 {
+    margin-top:10px;
+    padding-left:20px;
+}
+
+#comments .gravatar, #comments .comment-infos {
+    float:left;
+}
+
+#comments .comment-title {
+    height:50px;
+}
+
+#comments .comment-infos {
+    margin-left:5px;
+}
+
+#comments .comment-body {
+    clear:both;
+}
+
+#comments .comment-even, #comments .comment-odd {
+    margin-top:5px;
+    border-width:1px;
+}
+
+#comment-form {
+    margin-top:10px;
+}
+
+form .labels, form .inputs, #comment-form .comment-format, #comment-form .comment-captcha {
+    float:left;
+    margin-top:10px;
+    padding-right:10px;
+}
+
+#comment-form .comment-format {
+    width:250px;
+}
+
+form .labels label {
+    width:200px;
+    display:block;
+    height:20px;
+}
+
+form .submit {
+    clear:both;
+    padding-top:10px;
+    text-align:center;
+}
+
+#comment-form .comment-body {
+    clear:both;
+}
+
+textarea {
+    width:98%;
+}
+
+/******************************************************************************/
+/* Footer / Credits                                                           */
+/******************************************************************************/
+#footer {
+    clear:both;    
+}
+
+#credits {
+    text-align:center;
+}
+
+#credits li {
+    display:inline;
+}
+
+form p {
+    margin:5px;
+}
+fieldset {
+    border:none;
+}
+
+.rss {
+    padding-left: 18px;
+    padding-bottom: 2px;
+}
+

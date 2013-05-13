@@ -1,0 +1,224 @@
+* {
+    font-family:sans-serif;
+	color: #000000;
+}
+
+/******************************************************************************/
+/* Header                                                                     */
+/******************************************************************************/
+/*
+ * The original Full Metal Jacket helmet picture is Copyright :
+ * - Stanley Kubrick
+ * - Warner Bros.
+ * - The movie publisher
+ * or
+ * - The graphic artist 
+ */
+#header {
+    background:url('../images/logo.png') no-repeat #fff4de;
+    background-size: Auto 250px;
+}
+
+#header-text .title {
+    font-size: 2em;
+    font-weight:bold;
+}
+
+#header-text .slogan {
+    font-size: 1.5em;
+}
+
+/******************************************************************************/
+/* Navigation bar                                                             */
+/******************************************************************************/
+#nav {
+    font-size:small;
+    font-weight:bold;
+}
+
+#nav li a {
+	color: #ffffff;
+	text-decoration: none;
+	background: #00844A /*url(images/nav-button-bg.png) repeat-x*/;
+	padding: 5px 5px;
+	font: bold 12px/100% Arial, Helvetica, sans-serif;
+	border-top: 2px solid #eee6e6;
+	border-left: 2px solid #501238;
+	border-right: 2px solid #ac7d7d;
+	display: block;
+}
+#nav li a:hover {
+	color: #FFA500;
+}
+/*
+#nav li:before {
+    content:" | ";
+}
+
+#nav li:first-child:before {
+    content:"";
+}
+*/
+/******************************************************************************/
+/* Sidebar                                                                    */
+/******************************************************************************/
+#sidebar li {
+	color: #FFA500;
+    list-style-type:none;
+    font-size:small;
+}
+
+/******************************************************************************/
+/* Content                                                                    */
+/******************************************************************************/
+#content {
+	float: right;
+	width:600px;
+	font-size:small;
+	padding:10px;
+	border-left: 2px solid #EAEAEA;
+    text-align: justify;
+}
+
+.information, .warning, .error  {
+    font-weight:bold;
+}
+
+.information {
+    color:#006ffA;
+    background:url('../images/icons/information.png') no-repeat;
+}
+
+.warning {
+    color:#d0b20f;
+    background:url('../images/icons/warning.png') no-repeat;
+}
+
+.error {
+    color:red;
+    background:url('../images/icons/error.png') no-repeat;
+}
+
+.top {
+    background:url('../images/top.gif') no-repeat;
+}
+/******************************************************************************/
+/* Posts                                                                      */
+/******************************************************************************/
+.post .post-date {
+	width: 49px;
+	height: 49px;
+	float:left;
+	background: url('../images/toucan.png') no-repeat;
+}
+
+.post .post-date .year {
+    font-size:1em;
+    font-weight:bold;
+    text-transform: uppercase;
+	color: #00844A;
+    text-align: center;
+    display:block;
+}
+
+.post .post-date .month {
+    font-size:1em;
+	font-weight:bold;
+	text-transform: uppercase;
+	color: #00844A;
+	text-align: center;
+	display:block;
+}
+
+.post .post-date .day {
+    font-size:1.4em;
+	font-weight:bold;
+	text-transform: uppercase;
+	color: #FFA500;
+	text-align: center;
+	display:block;
+}
+
+.post .tags {
+    background:url('../images/post-tags.gif') no-repeat;
+}
+
+.post .comments {
+    background:url('../images/post-comments.gif') no-repeat;
+}
+
+.post .add-comment {
+    background:url('../images/post-add-comment.gif') no-repeat;
+}
+
+/******************************************************************************/
+/* Comments                                                                   */
+/******************************************************************************/
+#comments h3 {
+    background:url('../images/icons/comments.png') no-repeat;
+}
+
+#comments .comment-odd {
+    background-color: #fecb65;
+    border-style:solid;
+    border-color:#764D20;
+}
+
+#comments .comment-even {
+    background-color: #f9bb42;
+    border-style:solid;
+    border-color:#764D20;
+}
+
+#comments .comment-title {
+    border-left-style:solid;
+    border-left-color:#004293;
+}
+
+/******************************************************************************/
+/* Footer / Credits                                                           */
+/******************************************************************************/
+#credits {
+	text-align:center;
+	border-top:2px solid #eaeaea;
+	font-size:x-small;
+	padding-top:5px;
+	margin-bottom: 15px;
+    background: #fff4de;
+}
+
+/******************************************************************************/
+/* Individual elements                                                        */
+/******************************************************************************/
+/* <A> */
+a:link, a:visited, a:active {
+    color:#00844A;
+    text-decoration:none;
+}
+
+a:hover {
+    text-decoration:none;
+    color:#FFA500;
+}
+
+/* <IMG> */
+img {
+    border:none;
+}
+
+textarea {
+    font-size:small;
+}
+
+.rss {
+    background: url(../images/mini-rss.gif) no-repeat left center;
+}
+
+pre {
+    background-color: black;
+}
+
+pre code {
+    overflow: auto;
+    color: white;
+}
