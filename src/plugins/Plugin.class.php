@@ -170,5 +170,11 @@ abstract class Plugin implements PluginInterface
             Core::debug($msg, $val);
         }
     }
+
+    public function getPluginUrl($id)
+    {
+        global $fmbConf;
+        return $fmbConf['site']['url'].'plugins/'.$id.'/';
+    }
 }
 ?>

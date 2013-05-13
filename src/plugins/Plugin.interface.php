@@ -103,5 +103,13 @@ interface PluginInterface
      * @param string $requiredVersion Plugin's required PHP version.
      */
     public function setRequiredPHPVersion($requiredVersion);
+
+    /**
+     * Get the given Plugin's URL.
+     * @access public
+     * @param string $id Plugin's name.
+     * @return Plugin's URL/
+     */
+    public function getPluginUrl($id);
 }
 ?>
