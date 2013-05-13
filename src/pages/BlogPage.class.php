@@ -456,7 +456,7 @@ class BlogPage extends Page
             $this->tpl->assign('fmbPost', $post);
             $this->tpl->assign('fmbPostTags', $postTags);
 
-            $date = strftime('%d %B', strtotime($post['post_time']));
+            $date = strftime('%d %B %Y', strtotime($post['post_time']));
             $contents = $this->tpl->fetch($postTPL);
 
             array_push(
