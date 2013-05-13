@@ -91,6 +91,7 @@ class PluginEngine extends Singleton
 
         // Check for unique plugins.
         switch ($type) {
+            case 'caching'  :
             case 'database' : 
             case 'template' : {
                 if (isset(self::$_plugins["$type"])
@@ -256,6 +257,19 @@ class PluginEngine extends Singleton
     public function getDatabasePlugin()
     {
         return self::$_plugins['database'][0]['instance'];
+    }
+
+    /**
+     * Get loaded caching plugin.
+     * @access public
+     * @return class Instance of caching plugin.
+     */
+    public function getCachingPlugin()
+    {
+        if (isset(self::$_plugins['caching'])) {
+            return self::$_plugins['caching'][0]['instance'];
+        }
+        return null;
     }
 
     /**
