@@ -108,8 +108,16 @@ interface PluginInterface
      * Get the given Plugin's URL.
      * @access public
      * @param string $id Plugin's name.
-     * @return Plugin's URL/
+     * @return Plugin's URL.
      */
     public function getPluginUrl($id);
+
+    /**
+     * Get the given Plugin's URI.
+     * @access public
+     * @param string $id Plugin's name.
+     * @return Plugin's URI.
+     */
+    public function getPluginUri($id);
 }
 ?>

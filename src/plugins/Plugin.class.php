@@ -176,5 +176,10 @@ abstract class Plugin implements PluginInterface
         global $fmbConf;
         return $fmbConf['site']['url'].'plugins/'.$id.'/';
     }
+
+    public function getPluginUri($id)
+    {
+        return FMB_PATH.'plugins/'.$id.'/';
+    }
 }
 ?>
