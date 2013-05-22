@@ -1,15 +1,15 @@
 {if isset($fmbPost.nb_comments) and $fmbPost.nb_comments > 0}
 {if isset($fmbPost.nb_comments) and $fmbPost.nb_comments == 1}
-{assign var="nbComments" value="1 commentaire"}
+{assign var="nbComments" value="1 comment"}
 {else}
-{assign var="nbComments" value=$fmbPost.nb_comments|cat:" commentaires"}
+{assign var="nbComments" value=$fmbPost.nb_comments|cat:" comments"}
 {/if}
 {else}
-{assign var="nbComments" value="Pas de commentaire"}
+{assign var="nbComments" value="No comment"}
 {/if}
                 <div class="post">
                     <div class="post-date">
-                        <span class="month">{$fmbPost.post_time|date_format:"%b"}</span>
+                        <span class="month">{$fmbPost.post_time|date_format:"%b"|utf8_encode}</span>
                         <span class="day">{$fmbPost.post_time|date_format:"%d"}</span>
                     </div>
                     <div class="post-title">
@@ -18,9 +18,9 @@
                         </h2>
                         <div class="post-infos">
 {if isset($fmbDisplayMore) and $fmbDisplayMore == t}
-                            Par : <a href="{$fmbSiteUrl}member.php?id={$fmbPost.post_mem}">{$fmbPost.mem_login|htmlspecialchars}</a>
+                            By : <a href="{$fmbSiteUrl}member.php?id={$fmbPost.post_mem}">{$fmbPost.mem_login|htmlspecialchars}</a>
 {/if}
-                            Cat&eacute;gorie : <a href="index.php?page=posts&amp;cat={$fmbPost.post_cat}">{$fmbPost.cat_title|htmlspecialchars}</a>
+                            Categories : <a href="index.php?page=posts&amp;cat={$fmbPost.post_cat}">{$fmbPost.cat_title|htmlspecialchars}</a>
 {if !isset($fmbDisplayMore)}
                             <span class="comments">
                                 <a href="index.php?page=post&amp;id={$fmbPost.post_id}#comments">{$nbComments}</a>
@@ -29,7 +29,7 @@
 {if $fmbPost.post_closed == f and isset($fmbDisplayMore) and $fmbDisplayMore == t}
                             <span class="add-comment">
                                 <a href="index.php?page=post&amp;id={$fmbPost.post_id}#comment-form">
-                                    Ajouter un commentaire
+                                    Add a comment
                                 </a>
                             </span>
 {/if}
@@ -57,7 +57,7 @@
                     </div>
 {elseif $fmbPost.post_more != ""}
                     <a href="index.php?page=post&amp;id={$fmbPost.post_id}">
-                        Lire la suite du billet ...
+                        Read post ...
                     </a>
 {/if}
                 </div>

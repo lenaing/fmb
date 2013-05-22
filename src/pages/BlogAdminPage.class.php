@@ -1,12 +1,45 @@
 <?php
+/*
+ Copyright 2009 - 2012 - Etienne 'lenaing' GIRONDEL <lenaing@gmail.com>
+ 
+ FMB :
+ ------------
+ This software is an homemade PHP Blog engine.
+ 
+ This software is governed by the CeCILL license under French law and
+ abiding by the rules of distribution of free software.  You can  use, 
+ modify and/ or redistribute the software under the terms of the CeCILL
+ license as circulated by CEA, CNRS and INRIA at the following URL
+ "http://www.cecill.info". 
+ 
+ As a counterpart to the access to the source code and  rights to copy,
+ modify and redistribute granted by the license, users are provided only
+ with a limited warranty  and the software's author,  the holder of the
+ economic rights,  and the successive licensors  have only  limited
+ liability. 
+ 
+ In this respect, the user's attention is drawn to the risks associated
+ with loading,  using,  modifying and/or developing or reproducing the
+ software by the user in light of its specific status of free software,
+ that may mean  that it is complicated to manipulate,  and  that  also
+ therefore means  that it is reserved for developers  and  experienced
+ professionals having in-depth computer knowledge. Users are therefore
+ encouraged to load and test the software's suitability as regards their
+ requirements in conditions enabling the security of their systems and/or 
+ data to be ensured and,  more generally, to use and operate it in the 
+ same conditions as regards security. 
+ 
+ The fact that you are presently reading this means that you have had
+ knowledge of the CeCILL license and that you accept its terms.
+*/
+
 /**
  * BlogPage.class.php file.
  * This file contains the sourcecode of the Blog Page class.
  * @package FMB
  * @subpackage Pages
  * @author Lenain <lenaing@gmail.com>
- * @version 0.1a
- * TODO : Cache SQL / Template Queries
+ * @version 0.1b
  */
 namespace FMB\Pages;
 use FMB\Core\Core;
@@ -23,7 +56,7 @@ Core::loadFile('src/pages/Page.class.php');
  * @package FMB
  * @subpackage Pages
  * @author Lenain <lenaing@gmail.com>
- * @version 0.1a
+ * @version 0.1b
  */
 class BlogAdminPage extends Page
 {
@@ -31,7 +64,7 @@ class BlogAdminPage extends Page
     public function __construct()
     {
         parent::__construct('blog');
-        $this->title = _('Blog admin');
+        $this->title = _('Administration');
     }
 
     // Page interface methods.--------------------------------------------------
@@ -195,7 +228,7 @@ class BlogAdminPage extends Page
 
                 // Putting all post in this category to the general one.
                 $this->db->query(
-                    'UPDATE ogsmk_blog_posts ' .
+                    'UPDATE fmb_blog_posts ' .
                     'SET post_cat = ? ' .
                     'WHERE post_cat = ?',
                     array(0, $_POST['id']),
@@ -206,7 +239,7 @@ class BlogAdminPage extends Page
 
                 // Deleting this category.
                 $delOk = $this->db->query(
-                    'DELETE FROM ogsmk_blog_categories ' .
+                    'DELETE FROM fmb_blog_categories ' .
                     'WHERE cat_id = ?',
                     array($_POST['id']),
                     DBPlugin::SQL_QUERY_MANIP
@@ -225,8 +258,8 @@ class BlogAdminPage extends Page
     /**
      * Select one or more categories.
      * @param id If &lt; 0 Select all categories,
-     * 			 else select category with given
-     * 			 id.
+     *           else select category with given
+     *           id.
      */
     private function getCategories($selection)
     {
@@ -234,7 +267,7 @@ class BlogAdminPage extends Page
             return (
                 $this->db->query(
                     'SELECT * ' .
-                    'FROM ogsmk_blog_categories ' .
+                    'FROM fmb_blog_categories ' .
                     'ORDER BY cat_id',
                     array(),
                     DBPlugin::SQL_QUERY_ALL
@@ -244,7 +277,7 @@ class BlogAdminPage extends Page
             return (
                 $this->db->query(
                     'SELECT * '.
-                    'FROM ogsmk_blog_categories ' .
+                    'FROM fmb_blog_categories ' .
                     'WHERE cat_id = ?',
                     array($selection),
                     DBPlugin::SQL_QUERY_FIRST
@@ -256,10 +289,10 @@ class BlogAdminPage extends Page
     /**
      * Check adding or updating a category.
      * @param update Wether we are updating a category
-     * 				 rather than adding one.
-     * @return  1 : Missing parameters.
-     * 			2 : Added/Updated with success.
-     * 			-1 : Failed to add/update.
+     *               rather than adding one.
+     * @return  0 : Added/Updated with success.
+     *          1 : Missing parameters.
+     *          2 : Failed to add/update.
      */
     private function checkCategoryAdd($update)
     {
@@ -274,24 +307,24 @@ class BlogAdminPage extends Page
                 // Updating a category.
                 return (
                     $this->db->query(
-                        'UPDATE ogsmk_blog_categories ' .
+                        'UPDATE fmb_blog_categories ' .
                         'SET cat_title = ?, cat_desc = ? ' .
                         'WHERE cat_id = ?',
                         array($_POST['title'], $_POST['desc'], $_POST['id']),
                         DBPlugin::SQL_QUERY_MANIP
                     )
-                ) ? 2 : -1;
+                ) ? 0 : 2;
             } else {
                 // Adding a category.
                 return (
                     $this->db->query(
-                        'INSERT INTO ogsmk_blog_categories ' .
+                        'INSERT INTO fmb_blog_categories ' .
                         '(cat_title, cat_desc) VALUES '.
                         '(?, ?)',
                         array($_POST['title'], $_POST['desc']),
                         DBPlugin::SQL_QUERY_MANIP
                     )
-                ) ? 2 : -1;
+                ) ? 0 : 2;
             }
         }
     }
@@ -370,7 +403,7 @@ class BlogAdminPage extends Page
             if (!isset($delErr)) {
                 // Deleting this tag.
                 $delOk = $this->db->query(
-                    'DELETE FROM ogsmk_blog_tags ' .
+                    'DELETE FROM fmb_blog_tags ' .
                     'WHERE tag_id = ?',
                     array($_POST['id']),
                     DBPlugin::SQL_QUERY_MANIP
@@ -386,8 +419,8 @@ class BlogAdminPage extends Page
     /**
      * Select one or more categories.
      * @param id If &lt; 0 Select all categories,
-     * 			 else select category with given
-     * 			 id.
+     *           else select category with given
+     *           id.
      */
     private function getTags($selection)
     {
@@ -395,7 +428,7 @@ class BlogAdminPage extends Page
             return (
                 $this->db->query(
                     'SELECT * ' .
-                    'FROM ogsmk_blog_tags',
+                    'FROM fmb_blog_tags',
                     array(),
                     DBPlugin::SQL_QUERY_ALL
                 )
@@ -404,7 +437,7 @@ class BlogAdminPage extends Page
             return (
                 $this->db->query(
                     'SELECT * ' .
-                    'FROM ogsmk_blog_tags ' .
+                    'FROM fmb_blog_tags ' .
                     'WHERE tag_id = ?',
                     array($selection),
                     DBPlugin::SQL_QUERY_FIRST
@@ -416,10 +449,10 @@ class BlogAdminPage extends Page
     /**
      * Check adding or updating a tag.
      * @param update Wether we are updating a tag
-     * 				 rather than adding one.
-     * @return  1 : Missing parameters.
-     * 			2 : Added/Updated with success.
-     * 			-1 : Failed to add/update.
+     *               rather than adding one.
+     * @return  0 : Added/Updated with success.
+     *          1 : Missing parameters.
+     *          2 : Failed to add/update.
      */
     private function checkTagAdd($update)
     {
@@ -434,24 +467,24 @@ class BlogAdminPage extends Page
                 // Updating a tag.
                 return (
                     $this->db->query(
-                        'UPDATE ogsmk_blog_tags ' .
+                        'UPDATE fmb_blog_tags ' .
                         'SET tag_title = ?, tag_desc = ? ' .
                         'WHERE tag_id = ?',
                         array($_POST['title'],$_POST['desc'], $_POST['id']),
                         DBPlugin::SQL_QUERY_MANIP
                     )
-                ) ? 2 : -1;
+                ) ? 0 : 2;
             } else {
                 // Adding a tag.
                 return (
                     $this->db->query(
-                        'INSERT INTO ogsmk_blog_tags ' .
+                        'INSERT INTO fmb_blog_tags ' .
                         '(tag_title, tag_desc) VALUES '.
                         '(?, ?)',
                         array($_POST['title'], $_POST['desc']),
                         DBPlugin::SQL_QUERY_MANIP
                     )
-                ) ? 2 : -1;
+                ) ? 0 : 2;
             }
         }
     }
@@ -556,7 +589,7 @@ class BlogAdminPage extends Page
                 
                 // Deleting this post.
                 $delOk = $this->db->query(
-                    'DELETE FROM ogsmk_blog_posts ' .
+                    'DELETE FROM fmb_blog_posts ' .
                     'WHERE post_id = ?',
                     array($_POST['id']),
                     DBPlugin::SQL_QUERY_MANIP
@@ -585,14 +618,14 @@ class BlogAdminPage extends Page
                 }
             } else if ($_POST['actionDB'] == 'assignTagToPost') {
                 $this->db->query(
-                    'DELETE FROM ogsmk_blog_tags_rel ' .
+                    'DELETE FROM fmb_blog_tags_rel ' .
                     'WHERE post_id = ?',
                     array($_POST['id']),
                     DBPlugin::SQL_QUERY_MANIP
                 );
 
                 if ($_POST['tags'][0] != '-1') {
-                    $query = 'INSERT INTO ogsmk_blog_tags_rel ' .
+                    $query = 'INSERT INTO fmb_blog_tags_rel ' .
                              '(post_id, tag_id) VALUES ';
                     $values = array();
 
@@ -615,7 +648,7 @@ class BlogAdminPage extends Page
                 $postTags = (
                     $this->db->query(
                         'SELECT tag_id '.
-                        'FROM ogsmk_blog_tags_rel '.
+                        'FROM fmb_blog_tags_rel '.
                         'WHERE post_id = ?',
                         array($_POST['id']),
                         DBPlugin::SQL_QUERY_ALL
@@ -638,8 +671,8 @@ class BlogAdminPage extends Page
     /**
      * Select one or more posts.
      * @param id If &lt; 0 Select all posts,
-     * 			 else select post with given
-     * 			 id.
+     *           else select post with given
+     *           id.
      */
     private function getPosts($selection)
     {
@@ -647,7 +680,7 @@ class BlogAdminPage extends Page
             return (
                 $this->db->query(
                     'SELECT post_id, post_title, post_time '.
-                    'FROM ogsmk_blog_posts '.
+                    'FROM fmb_blog_posts '.
                     'ORDER BY post_time DESC',
                     array(),
                     DBPlugin::SQL_QUERY_ALL
@@ -657,7 +690,7 @@ class BlogAdminPage extends Page
             return (
                 $this->db->query(
                     'SELECT * '.
-                    'FROM ogsmk_blog_posts '.
+                    'FROM fmb_blog_posts '.
                     'WHERE post_id = ?',
                     array($selection),
                     DBPlugin::SQL_QUERY_FIRST
@@ -669,11 +702,11 @@ class BlogAdminPage extends Page
     /**
      * Check adding or updating a post.
      * @param update Wether we are updating a post
-     * 				 rather than adding one.
-     * @return  1 : Missing parameters.
-     * 			2 : Added/Updated with success.
-     * 			3 : Invalid time or date.
-     * 			-1 : Failed to add/update.
+     *               rather than adding one.
+     * @return  0 : Added/Updated with success.
+     *          1 : Missing parameters.
+     *          2 : Invalid time or date.
+     *          3 : Failed to add/update.
      */
     private function checkPostAdd($update)
     {
@@ -700,7 +733,7 @@ class BlogAdminPage extends Page
                    || !checkdate($_POST['month'], $_POST['day'], $_POST['year'])
                   ) {
             // Invalid date or hour
-            return 3;
+            return 2;
         } else {
 
             $title = $_POST['title'];
@@ -715,10 +748,10 @@ class BlogAdminPage extends Page
             $postID = $_POST['id'];
 
             if ($update) {
-                // Updating a category.
+                // Updating a post.
                 return (
                     $this->db->query(
-                        'UPDATE ogsmk_blog_posts ' .
+                        'UPDATE fmb_blog_posts ' .
                         'SET post_title = ?, post_body = ? ,' .
                         'post_more = ?, post_time = ?,' .
                         'post_closed = ?, post_draft = ?,' .
@@ -735,12 +768,12 @@ class BlogAdminPage extends Page
                               $postID),
                         DBPlugin::SQL_QUERY_MANIP
                     )
-                ) ? 2 : -1;
+                ) ? 0 : 3;
             } else {
-                // Adding a category.
+                // Adding a post.
                 return (
                     $this->db->query(
-                        'INSERT INTO ogsmk_blog_posts ' .
+                        'INSERT INTO fmb_blog_posts ' .
                         '(post_title, post_body, ' .
                         ' post_more, post_time, ' .
                         ' post_closed, post_draft, ' .
@@ -756,7 +789,7 @@ class BlogAdminPage extends Page
                               $userID),
                         DBPlugin::SQL_QUERY_MANIP
                     )
-                ) ? 2 : -1;
+                ) ? 0 : 3;
             }
         }
     }

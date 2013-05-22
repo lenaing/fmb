@@ -1,11 +1,45 @@
 <?php
+/*
+ Copyright 2009 - 2012 - Etienne 'lenaing' GIRONDEL <lenaing@gmail.com>
+ 
+ FMB :
+ ------------
+ This software is an homemade PHP Blog engine.
+ 
+ This software is governed by the CeCILL license under French law and
+ abiding by the rules of distribution of free software.  You can  use, 
+ modify and/ or redistribute the software under the terms of the CeCILL
+ license as circulated by CEA, CNRS and INRIA at the following URL
+ "http://www.cecill.info". 
+ 
+ As a counterpart to the access to the source code and  rights to copy,
+ modify and redistribute granted by the license, users are provided only
+ with a limited warranty  and the software's author,  the holder of the
+ economic rights,  and the successive licensors  have only  limited
+ liability. 
+ 
+ In this respect, the user's attention is drawn to the risks associated
+ with loading,  using,  modifying and/or developing or reproducing the
+ software by the user in light of its specific status of free software,
+ that may mean  that it is complicated to manipulate,  and  that  also
+ therefore means  that it is reserved for developers  and  experienced
+ professionals having in-depth computer knowledge. Users are therefore
+ encouraged to load and test the software's suitability as regards their
+ requirements in conditions enabling the security of their systems and/or 
+ data to be ensured and,  more generally, to use and operate it in the 
+ same conditions as regards security. 
+ 
+ The fact that you are presently reading this means that you have had
+ knowledge of the CeCILL license and that you accept its terms.
+*/
+
 /**
  * BlogPage.class.php file.
  * This file contains the sourcecode of the Blog Page class.
  * @package FMB
  * @subpackage Pages
  * @author Lenain <lenaing@gmail.com>
- * @version 0.1a
+ * @version 0.1b
  */
 namespace FMB\Pages;
 use FMB\Core\Core;
@@ -22,7 +56,7 @@ Core::loadFile('src/pages/Page.class.php');
  * @package FMB
  * @subpackage Pages
  * @author Lenain <lenaing@gmail.com>
- * @version 0.1a
+ * @version 0.1b
  */
 class BlogPage extends Page
 {
@@ -45,8 +79,10 @@ class BlogPage extends Page
         $this->tpl->assign('fmbTitle', $fmbConf['blog']['title']);
         $this->tpl->assign('fmbPageTitle', $pageTitle);
         $this->tpl->assign('fmbSiteUrl', $fmbConf['site']['url']);
+        $this->tpl->assign('fmbBlogUrl', $fmbConf['blog']['url']);
         $this->tpl->assign('fmbTemplatesUrl', $fmbConf['themes_url']);
         $this->tpl->assign('fmbStyle', $this->style);
+        $this->tpl->assign('fmbIsAdmin', User::isAdmin());
         if (!is_null($redirectURL)) {
             $this->tpl->assign('fmbRedirect', $redirectURL);
         }
@@ -98,18 +134,15 @@ class BlogPage extends Page
     {
         $categories = $this->db->query(
             'SELECT * '.
-            'FROM ogsmk_blog_categories '.
+            'FROM fmb_blog_categories '.
             'ORDER BY cat_id',
             array(),
             DBPlugin::SQL_QUERY_ALL
         ) ? $this->db->getSQLResult() : array();
 
-        $links = $this->tpl->fetch($this->style.'/blog/fmb.links.tpl');
-
         $this->tpl->assign('fmbIsLogged', User::isLogged());
         $this->tpl->assign('fmbIsAdmin', User::isAdmin());
         $this->tpl->assign('fmbBlogCategories', $categories);
-        $this->tpl->assign('fmbBlogLinks', $links);
 
         return $this->tpl->fetch($this->style.'/blog/fmb.menu.tpl');
     }
@@ -120,14 +153,18 @@ class BlogPage extends Page
      */
     public function printArchives()
     {
-        // TODO : Postgresql dependent? If so, move to DB plugin.
+        $yearExtract = $this->db->getSQLExtractString('year', 'post_time');
+        $monthExtract = $this->db->getSQLExtractString('month', 'post_time');
+
+        $queryString = 'SELECT '.$yearExtract.' AS year, '.
+                        '      '.$monthExtract.' AS month, '.
+                        '       post_time '.
+                        'FROM fmb_blog_posts '.
+                        'WHERE post_draft = false '.
+                        'ORDER BY year DESC, month ASC';
+
         $archives = $this->db->query(
-            'SELECT EXTRACT(year FROM post_time) AS year, '.
-            '       EXTRACT(month FROM post_time) AS month, '.
-            '       post_time '.
-            'FROM ogsmk_blog_posts '.
-            'WHERE post_draft = false '.
-            'ORDER BY year DESC, month ASC',
+            $queryString,
             array(),
             DBPlugin::SQL_QUERY_ALL
         ) ? $this->db->getSQLResult() : array();
@@ -162,14 +199,14 @@ class BlogPage extends Page
     {
         if (is_numeric($postID)) {
             $query = 'SELECT P.*, C.cat_title, M.mem_login, T.nb_comments '.
-                     'FROM ogsmk_blog_posts AS P '.
-                     'LEFT JOIN ogsmk_blog_categories AS C '.
+                     'FROM fmb_blog_posts AS P '.
+                     'LEFT JOIN fmb_blog_categories AS C '.
                      '          ON C.cat_id = P.post_cat '.
-                     'LEFT JOIN ogsmk_members AS M '.
+                     'LEFT JOIN fmb_members AS M '.
                      '          ON M.mem_id = P.post_mem '.
                      'LEFT JOIN ( '.
                      '    SELECT COUNT(*) AS nb_comments, com_post '.
-                     '    FROM ogsmk_blog_comments '.
+                     '    FROM fmb_blog_comments '.
                      '    GROUP BY com_post'.
                      ') AS T on T.com_post = P.post_id '.
                      'WHERE P.post_draft = FALSE AND P.post_id = ?';
@@ -202,14 +239,14 @@ class BlogPage extends Page
         }
 
         $query = 'SELECT P.*, C.cat_title, M.mem_login, T.nb_comments '.
-                 'FROM ogsmk_blog_posts AS P '.
-                 'LEFT JOIN ogsmk_blog_categories AS C '.
+                 'FROM fmb_blog_posts AS P '.
+                 'LEFT JOIN fmb_blog_categories AS C '.
                  '           ON C.cat_id = P.post_cat '.
-                 'LEFT JOIN ogsmk_members AS M '.
+                 'LEFT JOIN fmb_members AS M '.
                  '           ON M.mem_id = P.post_mem '.
                  'LEFT JOIN ( '.
                  '    SELECT COUNT(*) AS nb_comments, com_post '.
-                 '    FROM ogsmk_blog_comments '.
+                 '    FROM fmb_blog_comments '.
                  '    GROUP BY com_post'.
                  ') AS T on T.com_post = P.post_id '.
                  'WHERE P.post_draft = FALSE '.
@@ -225,15 +262,17 @@ class BlogPage extends Page
      */
     public function printPosts()
     {
+        global $fmbConf;
+        $restrictedQuery = false;
         $query = 'SELECT P.*, C.cat_title, M.mem_login, T.nb_comments '.
-                 'FROM ogsmk_blog_posts AS P '.
-                 'LEFT JOIN ogsmk_blog_categories AS C '.
+                 'FROM fmb_blog_posts AS P '.
+                 'LEFT JOIN fmb_blog_categories AS C '.
                  '           ON C.cat_id = P.post_cat '.
-                 'LEFT JOIN ogsmk_members AS M '.
+                 'LEFT JOIN fmb_members AS M '.
                  '           ON M.mem_id = P.post_mem '.
                  'LEFT JOIN ( '.
                  '    SELECT COUNT(*) AS nb_comments, com_post '.
-                 '    FROM ogsmk_blog_comments '.
+                 '    FROM fmb_blog_comments '.
                  '    GROUP BY com_post'.
                  ') AS T on T.com_post = P.post_id '.
                  'WHERE P.post_draft = FALSE ';
@@ -243,16 +282,18 @@ class BlogPage extends Page
         if (isset($_GET['cat']) && is_numeric($_GET['cat'])) {
             $query .= 'AND p.post_cat = ? ';
             array_push($values, $_GET['cat']);
+            $restrictedQuery = true;
         }
 
         // Tag?
         if (isset($_GET['tag']) && is_numeric($_GET['tag'])) {
             $query .= 'AND p.post_id IN ('.
                       '   SELECT DISTINCT post_id '.
-                      '   FROM ogsmk_blog_tags_rel '.
+                      '   FROM fmb_blog_tags_rel '.
                       '   WHERE tag_id = ?'.
                       ') ';
             array_push($values, $_GET['tag']);
+            $restrictedQuery = true;
         }
 
         // Specific period?
@@ -262,19 +303,11 @@ class BlogPage extends Page
             && is_numeric($_GET['y'])
             && is_numeric($_GET['m'])
         ) {
-            // TODO : Dirty! Should be donne by the RDBMS...> Move to DB plugin.
-            $dateBeg = date(
-                        'Y-m-d H:i:s',
-                        mktime(0, 0, 0, $_GET['m'], 1, $_GET['y'])
-                    );
-            $dateEnd = date(
-                        'Y-m-d H:i:s',
-                        strtotime($dateBeg.' +1 month')
-                    );
-
-            $query .= 'AND p.post_time BETWEEN ? AND ? ';
-            array_push($values, $dateBeg);
-            array_push($values, $dateEnd);
+            $startEpoch = mktime(0, 0, 0, $_GET['m'], 1, $_GET['y']);
+            $endEpoch = mktime(0, 0, 0, ($_GET['m'] + 1), 1, $_GET['y']); 
+            $query .= 'AND p.post_time ';
+            $query .= $this->db->getSQLIntervalString($startEpoch, $endEpoch);
+            $restrictedQuery = true;
         }
 
         // Search?
@@ -282,9 +315,21 @@ class BlogPage extends Page
             $cols = 'p.post_body,p.post_more,p.post_title';
             $searchQueryStr = $this->db->getSQLSearchString($cols, $_GET['q']);
             $query .=  $searchQueryStr;
+            $restrictedQuery = true;
         }
 
         $query .= ' ORDER BY P.post_time DESC';
+
+        if (! $restrictedQuery) {
+            if (isset($fmbConf['blog']['lastposts'])
+                && is_numeric($fmbConf['blog']['lastposts'])) {
+                    $lastPosts = $fmbConf['blog']['lastposts'];
+            } else {
+                $lastPosts = 3;
+            }
+            $query .= ' LIMIT '.$lastPosts;
+        }
+
         $this->retrievePosts($query, $values);
     }
 
@@ -294,7 +339,6 @@ class BlogPage extends Page
      * @param string query SQL query to fetch posts.
      * @param array values Values for SQL query.
      * @param int mode Fetch mode for SQL query.
-     * // TODO : Desc more
      */
     private function retrievePosts(
         $query,
@@ -347,14 +391,21 @@ class BlogPage extends Page
             $this->tpl->assign('fmbPostID', $post['post_id']);
             $commentFormTPL = $this->style;
 
-            // TODO : Check if only postgres boolean.
-            if ('f' == $post['post_closed']) {
+            if (! $this->db->getBooleanValueFromSQL($post['post_closed'])) {
 
                 $commentFormTPL .= '/blog/fmb.commentForm.tpl';
-                $this->tpl->assign('fmbUserID', User::getUserID());
-                $this->tpl->assign('fmbUserLogin', User::getUserLogin());
+
+                // Captcha
+                if ($this->plugEng->existPluginOfType('captcha')) {
+                    $tmpLabel = $this->plugEng->doHookConcat('getCaptchaLabel');
+                    $tmpInput = $this->plugEng->doHookConcat('getCaptchaInput');
+                    $this->tpl->assign('fmbCaptchaLabel', $tmpLabel);
+                    $this->tpl->assign('fmbCaptchaInput', $tmpInput);
+                }
 
                 $this->checkComment();
+                $this->tpl->assign('fmbUserID', User::getUserID());
+                $this->tpl->assign('fmbUserLogin', User::getUserLogin());
 
             } else {
                 $commentFormTPL .= '/blog/fmb.commentsClosed.tpl';
@@ -381,8 +432,8 @@ class BlogPage extends Page
 
         foreach ($postsArray as $post) {
             $query = 'SELECT T.* '.
-                     'FROM ogsmk_blog_tags_rel R '.
-                     'LEFT JOIN ogsmk_blog_tags T '.
+                     'FROM fmb_blog_tags_rel R '.
+                     'LEFT JOIN fmb_blog_tags T '.
                      '           ON R.tag_id = T.tag_id '.
                      'WHERE post_id = ?';
 
@@ -406,7 +457,7 @@ class BlogPage extends Page
             $this->tpl->assign('fmbPost', $post);
             $this->tpl->assign('fmbPostTags', $postTags);
 
-            $date = strftime('%d %B', strtotime($post['post_time']));
+            $date = strftime('%d %B %Y', strtotime($post['post_time']));
             $contents = $this->tpl->fetch($postTPL);
 
             array_push(
@@ -431,7 +482,7 @@ class BlogPage extends Page
         // TODO : Check params.
         $comments = $this->db->query(
             'SELECT * '.
-            'FROM ogsmk_blog_comments '.
+            'FROM fmb_blog_comments '.
             'WHERE com_post = ?',
             array($postID),
             DBPlugin::SQL_QUERY_ALL
@@ -449,13 +500,22 @@ class BlogPage extends Page
     {
 
         if (isset($_POST['action']) && ($_POST['action'] == 'addComment')) {
-            $errorName = false;
+            $errorUID = false;
             $errorBody = false;
 
-            // No name
+            // Check uid for tampering
+            if (empty($_POST['user_id']) || ($_POST['user_id'] != User::getUserID())) {
+                $errorUID = true;
+                $this->tpl->assign('fmbCommentUIDError', $errorUID);
+            }
+
+            // Anonymous comment posting
             if (empty($_POST['com_name'])) {
-                $errorName = true;
-                $this->tpl->assign('fmbCommentNameError', $errorName);
+                if (-1 == User::getUserID()) {
+                    $_POST['com_name'] = _('Anonymous');
+                } else {
+                    $_POST['com_name'] = User::getUserLogin();
+                }
             }
 
             // No body
@@ -469,12 +529,21 @@ class BlogPage extends Page
                 $_SESSION['usrLogin'] = $_POST['com_name'];
             }
 
-            if (!$errorName && !$errorBody) {
+            // Captcha
+            if ($this->plugEng->existPluginOfType('captcha')) {
+                if(!$this->plugEng->doHookConcatBoolean('checkCaptcha')) {
+                    $errorCaptcha = true;
+                    $this->tpl->assign('fmbCommentCaptchaError', $errorCaptcha);
+                    return;
+                }
+            }
+
+            if (!$errorUID && !$errorBody) {
 
                 // Everything is fine, entering the comment in the DB
                 $ip = getenv('REMOTE_ADDR');
                 $host = gethostbyaddr($ip);
-                $query ='INSERT INTO ogsmk_blog_comments '.
+                $query ='INSERT INTO fmb_blog_comments '.
                         '(com_body, com_name, com_mail, com_time, '.
                         'com_host, com_ip, com_post, com_mem) VALUES ' .
                         '(?, ?, ?, ?, ?, ?, ?, ?)';

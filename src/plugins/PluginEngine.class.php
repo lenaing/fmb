@@ -1,4 +1,38 @@
 <?php
+/*
+ Copyright 2009 - 2012 - Etienne 'lenaing' GIRONDEL <lenaing@gmail.com>
+ 
+ FMB :
+ ------------
+ This software is an homemade PHP Blog engine.
+ 
+ This software is governed by the CeCILL license under French law and
+ abiding by the rules of distribution of free software.  You can  use, 
+ modify and/ or redistribute the software under the terms of the CeCILL
+ license as circulated by CEA, CNRS and INRIA at the following URL
+ "http://www.cecill.info". 
+ 
+ As a counterpart to the access to the source code and  rights to copy,
+ modify and redistribute granted by the license, users are provided only
+ with a limited warranty  and the software's author,  the holder of the
+ economic rights,  and the successive licensors  have only  limited
+ liability. 
+ 
+ In this respect, the user's attention is drawn to the risks associated
+ with loading,  using,  modifying and/or developing or reproducing the
+ software by the user in light of its specific status of free software,
+ that may mean  that it is complicated to manipulate,  and  that  also
+ therefore means  that it is reserved for developers  and  experienced
+ professionals having in-depth computer knowledge. Users are therefore
+ encouraged to load and test the software's suitability as regards their
+ requirements in conditions enabling the security of their systems and/or 
+ data to be ensured and,  more generally, to use and operate it in the 
+ same conditions as regards security. 
+ 
+ The fact that you are presently reading this means that you have had
+ knowledge of the CeCILL license and that you accept its terms.
+*/
+
 /**
  * PluginEngine.class.php file.
  * This file contains the sourcecode of the PluginEngine class, which handle
@@ -6,7 +40,7 @@
  * @package FMB
  * @subpackage Plugins
  * @author Lenain <lenaing@gmail.com>
- * @version 0.1a
+ * @version 0.1b
  */
 namespace FMB\Plugins;
 use FMB\Core\Core;
@@ -18,7 +52,7 @@ use FMB\Core\Singleton;
  * @package FMB
  * @subpackage Plugins
  * @author Lenain <lenaing@gmail.com>
- * @version 0.1a
+ * @version 0.1b
  */
 class PluginEngine extends Singleton
 {
@@ -57,6 +91,7 @@ class PluginEngine extends Singleton
 
         // Check for unique plugins.
         switch ($type) {
+            case 'caching'  :
             case 'database' : 
             case 'template' : {
                 if (isset(self::$_plugins["$type"])
@@ -225,6 +260,19 @@ class PluginEngine extends Singleton
     }
 
     /**
+     * Get loaded caching plugin.
+     * @access public
+     * @return class Instance of caching plugin.
+     */
+    public function getCachingPlugin()
+    {
+        if (isset(self::$_plugins['caching'])) {
+            return self::$_plugins['caching'][0]['instance'];
+        }
+        return null;
+    }
+
+    /**
      * Set a plugin and method for a given hook.
      * @access public
      * @param string $hookName Name of the hook.
@@ -294,6 +342,7 @@ class PluginEngine extends Singleton
     public function doHookFunction($hookName, $parameters = NULL)
     {
         $result = NULL;
+        $params = &$parameters;
 
         if (isset(self::$_pluginsHooks["$hookName"])
                 && is_array(self::$_pluginsHooks["$hookName"])) {
@@ -303,7 +352,10 @@ class PluginEngine extends Singleton
                 $plugin = self::getPlugin($hook['pluginName']);
                 if (NULL != $plugin) {
                     if (method_exists($plugin, $hook['pluginMethod'])) {
-                        $result = $plugin->$hook['pluginMethod']($parameters);
+                        $result = $plugin->$hook['pluginMethod']($params);
+                        if ($hookName == "format") {
+                            $params[0] = $result;
+                        }
                     }
                 }
             }
@@ -334,6 +386,38 @@ class PluginEngine extends Singleton
                 if (NULL != $plugin) {
                     if (method_exists($plugin, $hook['pluginMethod'])) {
                         $result .= $plugin->$hook['pluginMethod']($parameters);
+                    }
+                }
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Execute given hook with eventual parameters and concat every results
+     * as booleans before returning them.
+     * @access public
+     * @param string $hookName Name of the hook to execute.
+     * @param array $parameters Parameters to pass to plugins methods.
+     * @return string The concatenated answers of all plugins to this hook.
+     *                If a single answer is false, the result will be false.
+     *                Otherwise the result will be true.
+     */
+    public function doHookConcatBoolean($hookName, $parameters = NULL)
+    {
+        $result = true;
+
+        if (isset(self::$_pluginsHooks["$hookName"])
+                && is_array(self::$_pluginsHooks["$hookName"])) {
+
+            /* Search for loaded plugins. */
+            foreach (self::$_pluginsHooks["$hookName"] as $hook) {
+                $plugin = self::getPlugin($hook['pluginName']);
+
+                if (NULL != $plugin) {
+                    if (method_exists($plugin, $hook['pluginMethod'])) {
+                        $result &= $plugin->$hook['pluginMethod']($parameters);
                     }
                 }
             }
