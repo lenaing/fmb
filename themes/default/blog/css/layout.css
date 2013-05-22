@@ -12,6 +12,7 @@ body {
     text-align:left;
     margin-left:auto;
     margin-right:auto;
+    margin-bottom:10px;
     width:800px;
 }
 
@@ -19,7 +20,7 @@ body {
 /* Header                                                                     */
 /******************************************************************************/
 #header {
-    height:200px;
+    height:150px;
     margin-top:20px;
 }
 

@@ -1,8 +1,8 @@
         <div id="main">
             <div id="header">
                 <ul id="nav">
-                    <li><a href="#content">Aller au contenu</a></li>
-                    <li><a href="#sidebar">Aller au menu</a></li>
+                    <li><a href="#content">Go to content</a></li>
+                    <li><a href="#sidebar">Go to menu</a></li>
                     <li><a href="#credits">Contact</a></li>
                     <li><a href="index.php">Blog</a></li>
                 </ul>

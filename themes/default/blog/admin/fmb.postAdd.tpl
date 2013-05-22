@@ -11,23 +11,23 @@
 {if isset($fmbPostUpdOk)}
 {if $fmbPostUpdOk == 1}
                 <div class="error">Veuillez remplir tous les champs marqu&eacute;s d'une &eacute;toile.</div>
-{elseif $fmbPostUpdOk == 3}
+{elseif $fmbPostUpdOk == 2}
                 <div class="error">Date ou heure invalide.</div>
-{elseif $fmbPostUpdOk == -1}
+{elseif $fmbPostUpdOk == 3}
                 <div class="error">
-{if $ogsmk_action == "add"}
+{if $fmbAction == "add"}
                     Erreur lors de l'ajout du billet.
 {else}
                     Erreur lors de la modification du billet.
 {/if}
                 </div>
 {/if}
-{if $fmbPostUpdOk == 2}
+{if $fmbPostUpdOk == 0}
                 <div class="information">
 {if isset($fmbAction) and $fmbAction == "add"}
-                    Billet ajout&eacute; avec succ&eagrave;s.
+                    Billet ajout&eacute; avec succ&egrave;s.
 {else}
-                    Billet modifi&eacute; avec succ&eagrave;s.
+                    Billet modifi&eacute; avec succ&egrave;s.
 {/if}
                 </div>
 {/if}

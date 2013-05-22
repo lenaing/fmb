@@ -136,8 +136,7 @@
 /******************************************************************************/
 #credits {
     font-size:x-small;
-    font-weight:bold;
-    color:#666666;
+    color:#AAAAAA;
 }
 
 /******************************************************************************/
@@ -163,18 +162,18 @@ textarea {
 }
 
 pre {
-	font-size: 10px;
-	background-color: black;
-	color: white;
-	padding: 5px;
-	overflow: auto;
-	border-left: 3px solid #e5ac5e;
+    font-size: 10px;
+    background-color: black;
+    color: white;
+    padding: 5px;
+    overflow: auto;
+    border-left: 3px solid #e5ac5e;
 }
 
 code {
-	font-size: 9px;
-	background-color: black;
-	color: yellow;
-	padding: 2px;
+    font-size: 9px;
+    background-color: black;
+    color: yellow;
+    padding: 2px;
 }
 
