@@ -108,8 +108,8 @@ abstract class Page implements PageInterface
         $this->db = $fmbPluginEngine->getDatabasePlugin();
         $this->plugEng = $fmbPluginEngine;
 
-        if (null != $this->tpl && $this->plugEng->existPluginOfType('template_extend')) {
-            $tmpArray = array(&$this->tpl);
+        if (null != $this->tpl &&null != $this->db && $this->plugEng->existPluginOfType('template_extend')) {
+            $tmpArray = array(&$this->tpl, &$this->db);
             $this->plugEng->doHookFunction('extend', $tmpArray);
         }
 

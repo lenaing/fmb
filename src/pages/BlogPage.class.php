@@ -82,6 +82,7 @@ class BlogPage extends Page
         $this->tpl->assign('fmbBlogUrl', $fmbConf['blog']['url']);
         $this->tpl->assign('fmbTemplatesUrl', $fmbConf['themes_url']);
         $this->tpl->assign('fmbStyle', $this->style);
+        $this->tpl->assign('fmbIsAdmin', User::isAdmin());
         if (!is_null($redirectURL)) {
             $this->tpl->assign('fmbRedirect', $redirectURL);
         }
