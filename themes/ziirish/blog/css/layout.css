@@ -72,15 +72,6 @@ body {
     padding-top: 10px;
 }
 
-#sidebar #tags {
-	border: 1px dashed;
-}
-
-#sidebar #tags .tag {
-	border-left: 0px;
-	padding: 0px;
-}
-
 #sidebar li a {
 	display: block;
 	text-decoration: none;

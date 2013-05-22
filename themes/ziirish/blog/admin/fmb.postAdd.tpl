@@ -49,9 +49,11 @@
                             <p><input name="title" value="{$fmbPost.post_title|stripslashes}"/></p>
                         </div>
                         <p style='clear:both'><label for="body" >Texte :</label></p>
-                        <p><textarea name='body' cols='40' rows='10' id='post_body'>{$fmbPost.post_body|stripslashes}</textarea></p>
+                        <p><textarea name='body' cols='40' rows='40' id='post_body'>{$fmbPost.post_body}</textarea></p>
+<!--
                         <p><label for="more">Texte Suppl&eacute;mentaire:</label></p>
                         <p><textarea name='more' cols='40' rows='10' id='post_more'>{$fmbPost.post_more|stripslashes}</textarea></p>
+-->
                         <div class='labels'>
                             <p><label for="draft">Brouillon?</label></p>
                             <p><label for="draft">Bloquer les commentaires?</label></p>
