@@ -32,16 +32,17 @@
  The fact that you are presently reading this means that you have had
  knowledge of the CeCILL license and that you accept its terms.
 */
-require_once('../../src/base.inc.php');
+require_once('../src/base.inc.php');
 use FMB\Core\Core;
 use FMB\Pages\BlogPage;
 
 Core::loadFile('src/pages/BlogPage.class.php');
 
-$page =& new BlogPage();
+$page = new BlogPage();
 
 // Retrieve asked page. Default : Last posts.
 $action = (isset($_GET['page'])) ? $_GET['page'] : 'lastPosts';
+$pg = (isset($_GET['pg'])) ? $_GET['pg'] : 1;
 
 // Print relevant page.
 switch($action) {
@@ -59,7 +60,7 @@ switch($action) {
     } break;
     case 'lastPosts' :
     default : {
-        $page->printLastPosts();
+        $page->printLastPosts($pg);
     }
 }
 
