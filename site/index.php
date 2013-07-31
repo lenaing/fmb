@@ -32,12 +32,40 @@
  The fact that you are presently reading this means that you have had
  knowledge of the CeCILL license and that you accept its terms.
 */
-require_once('../src/base.inc.php');
+require_once('/www/nginx-default/src/base.inc.php');
 use FMB\Core\Core;
-use FMB\Pages\SitePage;
+use FMB\Pages\BlogPage;
 
-Core::loadFile('src/pages/SitePage.class.php');
+Core::loadFile('src/pages/BlogPage.class.php');
 
-$page =& new SitePage();
-$page->redirect("blog/index.php", 'Oh hai!');
+$page = new BlogPage();
+
+// Retrieve asked page. Default : Last posts.
+$action = (isset($_GET['page'])) ? $_GET['page'] : 'lastPosts';
+$pg = (isset($_GET['pg'])) ? $_GET['pg'] : 1;
+
+// Print relevant page.
+switch($action) {
+    case 'archives' : {
+        $pageTitle = _('Archives');
+        $page->printHTMLHeader($pageTitle);
+        $page->printHeader($pageTitle);
+        $page->printArchives();
+    } break;
+    case 'post' : {
+        $page->printPost($_GET['id']);
+    } break;
+    case 'posts' : {
+        $page->printPosts();
+    } break;
+    case 'lastPosts' :
+    default : {
+        $page->printLastPosts($pg);
+    }
+}
+
+// Print everything else
+$page->printMenu();
+$page->printFooter();
+$page->printHTMLFooter();
 ?>
