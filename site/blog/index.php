@@ -32,7 +32,7 @@
  The fact that you are presently reading this means that you have had
  knowledge of the CeCILL license and that you accept its terms.
 */
-require_once('../src/base.inc.php');
+require_once('../../src/base.inc.php');
 use FMB\Core\Core;
 use FMB\Pages\BlogPage;
 
