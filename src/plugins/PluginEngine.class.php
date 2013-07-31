@@ -206,7 +206,7 @@ class PluginEngine extends Singleton
      * @param string $pluginName Plugin instance name.
      * @return class Plugin instance if found, <b>NULL</b> otherwise.
      */
-    public function getPlugin($pluginName)
+    public static function getPlugin($pluginName)
     {
         // Will only allow unique plugin name, as this return first plugin
         // with according name without checking plugin type.
@@ -226,7 +226,7 @@ class PluginEngine extends Singleton
      * @access public
      * @return array Array of loaded plugins.
      */
-    public function getPlugins()
+    public static function getPlugins()
     {
         return self::$_plugins;
     }
@@ -234,7 +234,7 @@ class PluginEngine extends Singleton
     /**
      * 
      */
-    public function existPluginOfType($type)
+    public static function existPluginOfType($type)
     {
         return (count(self::$_plugins[$type]) > 0);
     }
@@ -244,7 +244,7 @@ class PluginEngine extends Singleton
      * @access public
      * @return class Instance of template plugin.
      */
-    public function getTemplatePlugin()
+    public static function getTemplatePlugin()
     {
         return self::$_plugins['template'][0]['instance'];
     }
@@ -254,7 +254,7 @@ class PluginEngine extends Singleton
      * @access public
      * @return class Instance of database plugin.
      */
-    public function getDatabasePlugin()
+    public static function getDatabasePlugin()
     {
         return self::$_plugins['database'][0]['instance'];
     }
@@ -264,7 +264,7 @@ class PluginEngine extends Singleton
      * @access public
      * @return class Instance of caching plugin.
      */
-    public function getCachingPlugin()
+    public static function getCachingPlugin()
     {
         if (isset(self::$_plugins['caching'])) {
             return self::$_plugins['caching'][0]['instance'];
@@ -352,7 +352,14 @@ class PluginEngine extends Singleton
                 $plugin = self::getPlugin($hook['pluginName']);
                 if (NULL != $plugin) {
                     if (method_exists($plugin, $hook['pluginMethod'])) {
+                        $t = explode(' ', microtime());
+                        $t = $t[1] + $t[0];
                         $result = $plugin->$hook['pluginMethod']($params);
+                        $t2 = explode(' ', microtime());
+                        $t2 = $t2[1] + $t2[0];
+                        if (Core::isDebugging()) {
+                            Core::debug("%s: %fs", array($hook['pluginName'], ($t2 - $t)));
+                        }
                         if ($hookName == "format") {
                             $params[0] = $result;
                         }

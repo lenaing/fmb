@@ -64,6 +64,8 @@ abstract class Core
      */
     private static $_time;
 
+    private static $_int_time;
+
     /**
      * Set FMB's point in time.
      * Point in time is first set once this class is loaded.
@@ -86,6 +88,18 @@ abstract class Core
     {
         $time = explode(' ', microtime());
         return (($time[1] + $time[0]) - (self::$_time));
+    }
+
+    public static function setIntTime()
+    {
+        $time = explode(' ', microtime());
+        self::$_int_time = $time[1] + $time[0];
+    }
+
+    public static function getIntTime()
+    {
+        $time = explode(' ', microtime());
+        return (($time[1] + $time[0]) - (self::$_int_time));
     }
 
     /**
@@ -338,7 +352,7 @@ abstract class Core
         $bugfix = 0;
         $regexp = '/^(?:(\d+)\.)?(?:(\d+)\.)?(\d+)(?:(a|A|b|B|rc|RC)(\d+)?)?$/';
         $matches = array();
-        preg_match($regexp, $versionStr, &$matches);
+        preg_match($regexp, $versionStr, $matches);
 
         if (!empty($matches)) {
             switch (count($matches)-1) {
@@ -400,7 +414,7 @@ abstract class Core
     public static function isVersionString($versionStr) {
         $regexp = '/^(?:(\d+)\.)?(?:(\d+)\.)?(\d+)(?:(a|A|b|B|rc|RC)(\d+)?)?$/';
         $matches = array();
-        preg_match($regexp, $versionStr, &$matches);
+        preg_match($regexp, $versionStr, $matches);
         return (!empty($matches));
     }
 }
