@@ -1,3 +1,10 @@
+{if isset($fmbPageNum) and $fmbPageNum != 0}
+{assign var="lastPage" value=$fmbPageNum-1}
+{assign var="nextPage" value=$fmbPageNum+1}
+{else}
+{assign var="lastPage" value=-1}
+{assign var="nextPage" value=1}
+{/if}
             <div id="content">
 {if isset($fmbDisplaySearch) and $fmbDisplaySearch == t}
                 <div class="research">
@@ -33,6 +40,7 @@
 {if isset($fmbCommentForm) and $fmbCommentForm != ""}
 {$fmbCommentForm}
 {/if}
+                <br />
                 <div class="top">
                     <p>
                         <a href="#nav" title="Top of page">
@@ -40,4 +48,25 @@
                         </a>
                     </p>
                 </div>
+                <br />
+{if isset($fmbPageNum)}
+                <div class="center">
+                    <form method="get" action="index.php">
+                    <input type="hidden" name="page" value="lastPosts"/>
+{if !isset($fmbFirstPage) or $fmbFirstPage != t}
+                    <a href="page-{$lastPage}.html" title="Newer posts">
+                        « Newer posts
+                    </a>
+                    &nbsp;|&nbsp;
+{/if}
+                    Page <input name="pg" size="1" value="{$fmbPageNum}"/> / {$fmbNbPages}
+{if !isset($fmbLastPage) or $fmbLastPage != t}
+                    &nbsp;|&nbsp;
+                    <a href="page-{$nextPage}.html" title="Older posts">
+                        Older posts »
+                    </a>
+{/if}
+                    </form>
+                </div>
+{/if}
             </div>

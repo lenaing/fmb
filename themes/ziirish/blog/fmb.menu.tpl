@@ -74,15 +74,14 @@
                             <li><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" src="{$fmbTemplatesUrl}{$fmbStyle}/blog/images/cc-by-nc-sa-big.png" /></a></li>
                         </ul>
                     </li>
-<!--
                     <li>
                         <h2>Feeds</h2>
                         <ul>
                             <li><a href="rss.php?type=posts" class="rss">&nbsp;&nbsp;&nbsp;Billets</a></li>
                             <li><a href="rss.php?type=comments" class="rss" >&nbsp;&nbsp;&nbsp;Commentaires</a></li>
+                            <li><a href="/bm/?do=rss" class="rss" >&nbsp;&nbsp;&nbsp;Liens</a></li>
                         </ul>
                     </li>
--->
                 </ul>
             </div>
 

@@ -227,7 +227,7 @@ class BlogPage extends Page
      * $fmbConf['blog']['lastposts'].
      * @access public
      */
-    public function printLastPosts()
+    public function printLastPosts($page = 1)
     {
         global $fmbConf;
 
@@ -252,6 +252,25 @@ class BlogPage extends Page
                  'WHERE P.post_draft = FALSE '.
                  'ORDER BY P.post_time DESC '.
                  'LIMIT '.$lastPosts;
+
+        $count = ($this->db->query("SELECT count(*) AS nb_posts FROM fmb_blog_posts", array(), DBPlugin::SQL_QUERY_FIRST))
+                            ? $this->db->getSQLResult()
+                            : array();
+        $nbPages = intval($count['nb_posts']/$lastPosts);
+        $page = is_numeric($page) ? $page : 1;
+        $page = $page > $nbPages ? 1 : $page;
+        if ($page > 1 && ($page * $lastPosts) < $count['nb_posts']) {
+            $query .= ' OFFSET '.($page * $lastPosts);
+            if (($count['nb_posts'] - $lastPosts) <= ($page * $lastPosts)) {
+                $this->tpl->assign('fmbLastPage', true);
+            }
+        } 
+        if ($page <= 1) {
+            $this->tpl->assign('fmbFirstPage', true);
+        }
+        $this->tpl->assign('fmbPageNum', max($page, 1));
+        $this->tpl->assign('fmbNbPages', $nbPages);
+
         $values = array();
         $this->retrievePosts($query, $values);
     }
@@ -418,7 +437,9 @@ class BlogPage extends Page
 
             $this->tpl->assign('fmbComments', $comments);
             $this->tpl->assign('fmbCommentForm', $commentForm);
-            $this->tpl->assign('fmbDisplayMore', true);
+            if ($_GET['page'] == 'post') {
+                $this->tpl->assign('fmbDisplayMore', true);
+            }
         } else {
             // More than one post. Don't print comments.
             $this->printHTMLHeader();
@@ -448,10 +469,11 @@ class BlogPage extends Page
                 $tmpArray = array($post['post_body'], true);
                 $tmpText = $this->plugEng->doHookFunction('format', $tmpArray);
                 $post['post_body'] = $tmpText;
-                
+/*                
                 $tmpArray = array($post['post_more'], true);
                 $tmpText = $this->plugEng->doHookFunction('format', $tmpArray);
                 $post['post_more'] = $tmpText;
+ */
             }
 
             $this->tpl->assign('fmbPost', $post);
@@ -488,7 +510,17 @@ class BlogPage extends Page
             DBPlugin::SQL_QUERY_ALL
         ) ? $this->db->getSQLResult() : array();
 
-        $this->tpl->assign('fmbPostComments', $comments);
+        $comms = array();
+        foreach ($comments as $com) {
+            if ($this->plugEng->existPluginOfType('formatting')) {
+                $tmpArray = array($com['com_body'], false);
+                $tmpText = $this->plugEng->doHookFunction('format', $tmpArray);
+                $com['com_body'] = ''.$tmpText;
+            }
+            $comms[] = $com;
+        }
+
+        $this->tpl->assign('fmbPostComments', $comms);
         return $this->tpl->fetch($this->style.'/blog/fmb.comments.tpl');
     }
 

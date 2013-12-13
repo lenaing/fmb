@@ -90,18 +90,38 @@ class LoginPage extends SitePage
         $this->printHTMLFooter();
     }
 
+    private function checkPluginLogin($username, $password) {
+            if ($this->plugEng->existPluginOfType('login')) {                                                                                                                                                               
+                $tmpArray = array($username, $password);
+                return $this->plugEng->doHookBoolean('login', $tmpArray);
+            }
+            return false;
+    }
+
     /**
      * Check for user login.
      * @return <code>true</code> if allowed, <code>false</code> otherwise.
      */
     private function checkLogin() {
-        $user = $this->db->query(
-                'SELECT * ' .
-                'FROM fmb_members ' .
-                'WHERE mem_login = ? AND mem_passwd = ?',
-                array($_REQUEST['login'], sha1($_REQUEST['password'])),
-                DBPlugin::SQL_QUERY_FIRST
-        ) ? $this->db->getSQLResult() : array();
+        $user = array();
+
+        if ($this->checkPluginLogin($_REQUEST['login'], $_REQUEST['password'])) {
+            $user = $this->db->query(
+                        'SELECT * '.
+                        'FROM fmb_members '.
+                        'WHERE mem_login = ?',
+                        array($_REQUEST['login']),
+                        DBPlugin::SQL_QUERY_FIRST
+                    ) ? $this->db->getSQLResult() : array();
+        } else {
+            $user = $this->db->query(
+                    'SELECT * ' .
+                    'FROM fmb_members ' .
+                    'WHERE mem_login = ? AND mem_passwd = ?',
+                    array($_REQUEST['login'], sha1($_REQUEST['password'])),
+                    DBPlugin::SQL_QUERY_FIRST
+                ) ? $this->db->getSQLResult() : array();
+        }
 
         if ($user != array()) {
             $_SESSION['usrID'] = $user['mem_id'];

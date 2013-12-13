@@ -64,6 +64,8 @@ abstract class Core
      */
     private static $_time;
 
+    private static $_int_time;
+
     /**
      * Set FMB's point in time.
      * Point in time is first set once this class is loaded.
@@ -86,6 +88,18 @@ abstract class Core
     {
         $time = explode(' ', microtime());
         return (($time[1] + $time[0]) - (self::$_time));
+    }
+
+    public static function setIntTime()
+    {
+        $time = explode(' ', microtime());
+        self::$_int_time = $time[1] + $time[0];
+    }
+
+    public static function getIntTime()
+    {
+        $time = explode(' ', microtime());
+        return (($time[1] + $time[0]) - (self::$_int_time));
     }
 
     /**

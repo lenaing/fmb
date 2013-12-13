@@ -32,40 +32,41 @@
  The fact that you are presently reading this means that you have had
  knowledge of the CeCILL license and that you accept its terms.
 */
-require_once('../../src/base.inc.php');
+
+/**
+ * LoginPlugin.class.php file.
+ * This file contains the sourcecode of the abstract LoginPlugin class.
+ * Every FMB caching plugin should extends this class.
+ * @package FMB
+ * @subpackage Plugins
+ * @author Ziirish <ziirish@ziirish.info>
+ * @version 0.1b
+ */
+namespace FMB\Plugins;
 use FMB\Core\Core;
-use FMB\Pages\BlogPage;
+use FMB\Plugins\Plugin;
+use FMB\Plugins\LoginPluginInterface;
 
-Core::loadFile('src/pages/BlogPage.class.php');
+// Loading required files.
+Core::loadFile('src/plugins/Plugin.class.php', true);
+Core::loadFile('src/plugins/LoginPlugin.interface.php', true);
 
-$page = new BlogPage();
+/**
+ * LoginPlugin abstract class.
+ * This file contains the LoginPlugin abstract class.
+ * @package FMB
+ * @subpackage Plugins
+ * @author Ziirish <ziirish@ziirish.info>
+ * @version 0.1b
+ * @abstract
+ */
+abstract class LoginPlugin extends Plugin implements LoginPluginInterface
+{
 
-// Retrieve asked page. Default : Last posts.
-$action = (isset($_GET['page'])) ? $_GET['page'] : 'lastPosts';
-$pg = (isset($_GET['pg'])) ? $_GET['pg'] : 1;
-
-// Print relevant page.
-switch($action) {
-    case 'archives' : {
-        $pageTitle = _('Archives');
-        $page->printHTMLHeader($pageTitle);
-        $page->printHeader($pageTitle);
-        $page->printArchives();
-    } break;
-    case 'post' : {
-        $page->printPost($_GET['id']);
-    } break;
-    case 'posts' : {
-        $page->printPosts();
-    } break;
-    case 'lastPosts' :
-    default : {
-        $page->printLastPosts($pg);
+    public final function __construct()
+    {
+        parent::__construct('template');
     }
-}
 
-// Print everything else
-$page->printMenu();
-$page->printFooter();
-$page->printHTMLFooter();
+}
 ?>
